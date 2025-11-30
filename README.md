@@ -21,8 +21,11 @@ Wrap a string
 - [Install](#install)
 - [Use](#use)
 - [API](#api)
+  - [`lines(thing, config[, options])`](#linesthing-config-options)
 - [Types](#types)
   - [`Config`](#config)
+  - [`LinePadding`](#linepadding)
+  - [`LinesInfo`](#linesinfo)
   - [`Options`](#options)
   - [`ToString<[T]>`](#tostringt)
 - [Contribute](#contribute)
@@ -80,7 +83,27 @@ bun add @flex-development/string-wrap
 
 ## API
 
-**TODO**: api
+### `lines(thing, config[, options])`
+
+Get info about the lines of a wrapped string.
+
+#### Overloads
+
+- `lines(thing: unknown, config: number | string, options?: Options | null | undefined): LinesInfo`
+- `lines(thing: unknown, config: Config | number | string): LinesInfo`
+
+##### Parameters
+
+- `thing` (`unknown`)
+  — the thing to wrap. non-string values will be converted to strings
+- `config` ([`Config`](#config) | `number` | `string`)
+  — the wrap configuration or the number of columns to wrap the string to
+- `options` ([`Options`](#options) | `null` | `undefined`, `optional`)
+  — options for wrapping
+
+##### Returns
+
+([`LinesInfo`](#linesinfo)) Info about the lines forming the wrapped string
 
 ## Types
 
@@ -99,12 +122,38 @@ String wrapping configuration (`interface`).
 - `columns` (`number` | `string`)
   — the number of columns to wrap the string to
 
+### `LinePadding`
+
+The strings used to pad either side of each line (`type`).
+
+```ts
+type LinePadding = [left: string, right: string]
+```
+
+### `LinesInfo`
+
+Info about the lines of a wrapped string (`interface`).
+
+#### Properties
+
+- `eol` (`string`)
+  — the character, or characters, used to mark the end of a line
+- `indent` (`string`)
+  — the string used to indent each line
+- `lines` (`readonly string[]`)
+  — the list of lines forming the wrapped string
+- `padding` ([`LinePadding`](#linepadding))
+  — the strings used to pad either side of each line
+
 ### `Options`
 
 Options for wrapping a string (`interface`).
 
 #### Properties
 
+- `eol?` (`string` | `null` | `undefined`, optional)
+  — the character, or characters, used to mark the end of a line
+  - default: `'\n'`
 - `fill?` (`boolean` | `null` | `undefined`, optional)
   — whether to completely fill each column, splitting words as necessary.\
   by default, splits are made at spaces, ensuring that words aren't broken

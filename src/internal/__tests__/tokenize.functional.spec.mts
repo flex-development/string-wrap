@@ -46,6 +46,7 @@ describe('functional:internal/tokenize', () => {
       'currentConstruct',
       'defineSkip',
       'encoding',
+      'eol',
       'events',
       'fill',
       'flush',

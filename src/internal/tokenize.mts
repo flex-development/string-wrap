@@ -87,7 +87,7 @@ function tokenize(
  *  The thing to tokenize.
  *  Non-string values will be converted to strings
  * @param {Config | number | string} config
- *  The wrap config or the number of columns to wrap the text to
+ *  The wrap configuration or the number of columns to wrap the string to
  * @param {Options | null | undefined} [options]
  *  Options for wrapping
  * @return {TokenizeContext}
@@ -174,6 +174,7 @@ function tokenize(
     ok(typeof config === 'object', 'expected wrap config object')
 
     self.cols = self.columns = +config.columns
+    self.eol = config.eol?.replaceAll(/[\t ]/g, chars.empty) || chars.lf
     self.fill = config.fill
     self.flush = flush.bind(self)
     self.hard = config.hard

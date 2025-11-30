@@ -10,6 +10,13 @@ import type { ToString } from '@flex-development/string-wrap'
  */
 interface Options {
   /**
+   * The character, or characters, used to mark the end of a line.
+   *
+   * @default '\n'
+   */
+  eol?: string | null | undefined
+
+  /**
    * Whether to completely fill each column, splitting words as necessary.
    *
    * By default, splits are made at spaces, ensuring that words aren't broken

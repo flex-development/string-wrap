@@ -40,6 +40,14 @@ declare module '@flex-development/fsm-tokenizer' {
     columns: number
 
     /**
+     * The character, or characters, used to mark the end of a line.
+     *
+     * @internal
+     * @override
+     */
+    eol: string
+
+    /**
      * Start a new line.
      *
      * @internal

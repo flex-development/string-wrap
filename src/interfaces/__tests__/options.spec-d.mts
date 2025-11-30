@@ -12,6 +12,12 @@ describe('unit-d:interfaces/Options', () => {
     expectTypeOf<OptionalKeys<TestSubject>>().toEqualTypeOf<keyof TestSubject>()
   })
 
+  it('should match [eol?: string | null | undefined]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('eol')
+      .toEqualTypeOf<Nilable<string>>()
+  })
+
   it('should match [fill?: boolean | null | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('fill')

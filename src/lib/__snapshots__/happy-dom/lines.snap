@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/lines > should return lines info (0) 1`] = `
+{
+  "eol": ""\\r\\n"",
+  "indent": "  ",
+  "lines": [
+    "  🦄",
+    "  🦾",
+    "  🚀",
+  ],
+  "padding": [
+    "",
+    "",
+  ],
+}
+`;
+
+exports[`unit:lib/lines > should return lines info (1) 1`] = `
+{
+  "eol": ""\\n"",
+  "indent": "",
+  "lines": [
+    " The quick brown ",
+    " fox jumped over ",
+    " the lazy dog ",
+  ],
+  "padding": [
+    " ",
+    " ",
+  ],
+}
+`;
