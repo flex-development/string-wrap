@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["0123456789", "3"]) 1`] = `"012"`;
+
+exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["🦄🦾🚀", 1]) 1`] = `"🦄"`;

@@ -22,6 +22,7 @@ Wrap a string
 - [Use](#use)
 - [API](#api)
 - [Types](#types)
+  - [`Config`](#config)
   - [`Options`](#options)
   - [`ToString<[T]>`](#tostringt)
 - [Contribute](#contribute)
@@ -85,13 +86,47 @@ bun add @flex-development/string-wrap
 
 This package is fully typed with [TypeScript][].
 
+### `Config`
+
+String wrapping configuration (`interface`).
+
+### Extends
+
+- [`Options`](#options)
+
+#### Properties
+
+- `columns` (`number` | `string`)
+  — the number of columns to wrap the string to
+
 ### `Options`
 
 Options for wrapping a string (`interface`).
 
 #### Properties
 
-**TODO**: `Options` properties
+- `fill?` (`boolean` | `null` | `undefined`, optional)
+  — whether to completely fill each column, splitting words as necessary.\
+  by default, splits are made at spaces, ensuring that words aren't broken
+  and don't extend past the configured number of `columns`
+  > 👉 **note**: setting this to `true` will break words.
+- `hard?` (`boolean` | `null` | `undefined`, optional)
+  — whether to hard wrap words at the specified number of `columns`.\
+  by default, long words remain unbroken and push onto the next line if they don't fit on the current line.\
+  setting this to `true` will break long words.
+  > 👉 **note**: setting this to `true` will break words.
+- `indent?` (`number` | `string` | `null` | `undefined`, optional)
+  — the size of the indent, or a string used to indent each line
+- `padLeft?` (`number` | `string` | `null` | `undefined`, optional)
+  — the size of the string to use for padding the left side of each line (as a number or numeric), or the string to use
+- `padRight?` (`number` | `string` | `null` | `undefined`, optional)
+  — the size of the string to use for padding the right side of each line (as a number or numeric), or the string to use
+- `stringify?` ([`ToString`](#tostringt) | `null` | `undefined`, optional)
+  — convert a value to a string
+- `trim?` (`boolean` | `null` | `undefined`, optional)
+  — whether to remove whitespace from the end of each line
+  > 👉 **note**: lines are trimmed before applying indents or padding.
+  - default: `true`
 
 ### `ToString<[T]>`
 

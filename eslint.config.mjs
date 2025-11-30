@@ -15,9 +15,9 @@ import fldv from '@flex-development/eslint-config'
 const config = [
   ...fldv.configs.node,
   {
-    files: ['src/__tests__/string-wrap.spec.mts'],
+    files: ['src/constructs/*.mts'],
     rules: {
-      'unicorn/escape-case': 0
+      'unicorn/no-this-assignment': 0
     }
   }
 ]

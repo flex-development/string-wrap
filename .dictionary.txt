@@ -8,6 +8,7 @@ gpgsign
 hmarr
 jchen
 kaisugi
+ksort
 nvmrc
 shfmt
 unstub

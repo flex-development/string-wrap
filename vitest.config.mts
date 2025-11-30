@@ -168,7 +168,7 @@ function config(this: void, env: ConfigEnv): ViteUserConfig {
         )
       },
       restoreMocks: true,
-      setupFiles: [],
+      setupFiles: ['./__tests__/setup/chai.mts'],
       snapshotFormat: {
         callToJSON: true,
         min: false,

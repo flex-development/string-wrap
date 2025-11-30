@@ -13,5 +13,6 @@
   },
   "exclude": ["**/__tests__/**"],
   "extends": "./tsconfig.json",
+  "files": ["./typings/@flex-development/fsm-tokenizer/index.d.mts"],
   "include": ["dist/**/*", "src/**/**.mts"]
 }
