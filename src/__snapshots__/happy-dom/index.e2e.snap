@@ -3,5 +3,6 @@
 exports[`e2e:string-wrap > should expose public api 1`] = `
 [
   "lines",
+  "wrap",
 ]
 `;

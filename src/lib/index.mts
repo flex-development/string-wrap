@@ -4,3 +4,4 @@
  */
 
 export { default as lines } from '#lib/lines'
+export { default as wrap } from '#lib/wrap'

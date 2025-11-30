@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/wrap > should return wrapped string 1`] = `
+"Parsed options can be accessed by calling [\`.opts<T>()\`](#commandoptst)
+on a [\`Command\`](#commandinfo) object, and are passed to the command's
+[\`action\`](#commandactionaction) handler.
+Multi-word options such as \`--template-engine\` are \`camelCased\`,
+becoming \`program.opts().templateEngine\`, or can be configured to be
+converted using \`snake_case\`, becoming \`program.opts().template_engine\`."
+`;

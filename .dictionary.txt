@@ -1,5 +1,6 @@
 attw
 cefc
+commandoptst
 commitlintrc
 dedupe
 devlop

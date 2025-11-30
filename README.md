@@ -22,6 +22,7 @@ Wrap a string
 - [Use](#use)
 - [API](#api)
   - [`lines(thing, config[, options])`](#linesthing-config-options)
+  - [`wrap(thing, config[, options])`](#wrapthing-config-options)
 - [Types](#types)
   - [`Config`](#config)
   - [`LinePadding`](#linepadding)
@@ -83,6 +84,13 @@ bun add @flex-development/string-wrap
 
 ## API
 
+This package exports the following identifiers:
+
+- [`lines`](#linesthing-config-options)
+- [`wrap`](#wrapthing-config-options)
+
+The default export is [`wrap`](#wrapthing-config-options).
+
 ### `lines(thing, config[, options])`
 
 Get info about the lines of a wrapped string.
@@ -104,6 +112,28 @@ Get info about the lines of a wrapped string.
 ##### Returns
 
 ([`LinesInfo`](#linesinfo)) Info about the lines forming the wrapped string
+
+### `wrap(thing, config[, options])`
+
+Wrap a string to the specified column width.
+
+#### Overloads
+
+- `wrap(thing: unknown, config: number | string, options?: Options | null | undefined): string`
+- `wrap(thing: unknown, config: Config | number | string): string`
+
+##### Parameters
+
+- `thing` (`unknown`)
+  — the thing to wrap. non-string values will be converted to strings
+- `config` ([`Config`](#config) | `number` | `string`)
+  — the wrap configuration or the number of columns to wrap the string to
+- `options` ([`Options`](#options) | `null` | `undefined`, `optional`)
+  — options for wrapping
+
+##### Returns
+
+(`string`) The wrapped string
 
 ## Types
 
