@@ -61,6 +61,13 @@ interface Options {
   stringify?: ToString | null | undefined
 
   /**
+   * The number of spaces a tab is equivalent to.
+   *
+   * @default 2
+   */
+  tabSize?: number | null | undefined
+
+  /**
    * Whether to remove whitespace from the beginning and end of each line.
    *
    * > 👉 **Note**: Lines are trimmed before applying indents or padding.

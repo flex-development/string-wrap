@@ -118,7 +118,8 @@ function tokenize(
       [codes.vcr]: eol,
       [codes.vlf]: eol,
       null: [sequence, eoc]
-    })
+    }),
+    tabSize: config.tabSize ?? +chars.digit2
   })
 
   /**

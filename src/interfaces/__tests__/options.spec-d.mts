@@ -54,6 +54,12 @@ describe('unit-d:interfaces/Options', () => {
       .toEqualTypeOf<Nilable<ToString>>()
   })
 
+  it('should match [tabSize?: number | null | undefined]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('tabSize')
+      .toEqualTypeOf<Nilable<number>>()
+  })
+
   it('should match [trim?: boolean | null | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('trim')

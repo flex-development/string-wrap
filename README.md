@@ -202,6 +202,9 @@ Options for wrapping a string (`interface`).
   — the size of the string to use for padding the right side of each line (as a number or numeric), or the string to use
 - `stringify?` ([`ToString`](#tostringt) | `null` | `undefined`, optional)
   — convert a value to a string
+- `tabSize?` (`number` | `null` | `undefined`, optional)
+  — the number of spaces a tab is equivalent to
+  - default: `2`
 - `trim?` (`boolean` | `null` | `undefined`, optional)
   — whether to remove whitespace from the end of each line
   > 👉 **note**: lines are trimmed before applying indents or padding.
