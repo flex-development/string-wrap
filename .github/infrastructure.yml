@@ -180,7 +180,10 @@ repository:
   squash_merge_commit_title: PR_TITLE
   topics:
     - ansi
+    - cli
+    - logging
     - string
+    - wordwrap
     - wrap
   visibility: public
   vulnerability_alerts: true

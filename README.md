@@ -18,6 +18,7 @@ Wrap a string
 ## Contents
 
 - [What is this?](#what-is-this)
+  - [Features](#features)
 - [Install](#install)
 - [Use](#use)
 - [API](#api)
@@ -34,7 +35,13 @@ Wrap a string
 
 ## What is this?
 
-**TODO**: what is this?
+This is a small, but useful package for word-wrapping a string to a specified column width.
+
+### Features
+
+\:rainbow: [ansi][] support\
+\:unicorn: emoji and fullwidth character support\
+\:arrow\_right: indent and pad lines
 
 ## Install
 
@@ -286,7 +293,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 This project has a [code of conduct](./CODE_OF_CONDUCT.md). By interacting with this repository, organization, or
 community you agree to abide by its terms.
 
-<!-- [aec]: https://en.wikipedia.org/wiki/ANSI_escape_code -->
+[ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
 
 [bun]: https://bun.sh
 
