@@ -1918,6 +1918,7 @@ __metadata:
     "@flex-development/grease": "npm:3.0.0-alpha.9"
     "@flex-development/pathe": "npm:4.0.2"
     "@flex-development/remark-preset": "npm:1.0.0"
+    "@flex-development/strip-ansi": "npm:1.0.0"
     "@flex-development/tutils": "npm:6.0.0-alpha.25"
     "@tsconfig/strictest": "npm:2.0.8"
     "@types/concat-stream": "npm:2.0.3"
@@ -1951,9 +1952,19 @@ __metadata:
     unified: "npm:11.0.5"
     vfile: "npm:6.0.3"
     vitest: "npm:4.0.15"
+    wrap-ansi: "npm:9.0.2"
     yaml-eslint-parser: "npm:1.3.2"
   languageName: unknown
   linkType: soft
+
+"@flex-development/strip-ansi@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@flex-development/strip-ansi@npm:1.0.0"
+  dependencies:
+    "@flex-development/ansi-regex": "npm:1.0.0"
+  checksum: 10/95670ef22d1ab3aa696dc80b90d738820a375bed8036cd42edb100ddf3589e170387b5d00c8a7e2316ddbc1c77cfdfd65093683ddeb5c1551e2d44e50dbe5ef8
+  languageName: node
+  linkType: hard
 
 "@flex-development/toggle-pkg-type@npm:2.0.1":
   version: 2.0.1
@@ -3506,7 +3517,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:^6.1.0":
+"ansi-styles@npm:^6.1.0, ansi-styles@npm:^6.2.1":
   version: 6.2.3
   resolution: "ansi-styles@npm:6.2.3"
   checksum: 10/c49dad7639f3e48859bd51824c93b9eb0db628afc243c51c3dd2410c4a15ede1a83881c6c7341aa2b159c4f90c11befb38f2ba848c07c66c9f9de4bcd7cb9f30
@@ -10594,7 +10605,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:7.2.0":
+"string-width@npm:7.2.0, string-width@npm:^7.0.0":
   version: 7.2.0
   resolution: "string-width@npm:7.2.0"
   dependencies:
@@ -11896,6 +11907,17 @@ __metadata:
     string-width: "npm:^4.1.0"
     strip-ansi: "npm:^6.0.0"
   checksum: 10/cebdaeca3a6880da410f75209e68cd05428580de5ad24535f22696d7d9cab134d1f8498599f344c3cf0fb37c1715807a183778d8c648d6cc0cb5ff2bb4236540
+  languageName: node
+  linkType: hard
+
+"wrap-ansi@npm:9.0.2":
+  version: 9.0.2
+  resolution: "wrap-ansi@npm:9.0.2"
+  dependencies:
+    ansi-styles: "npm:^6.2.1"
+    string-width: "npm:^7.0.0"
+    strip-ansi: "npm:^7.1.0"
+  checksum: 10/f3907e1ea9717404ca53a338fa5a017c2121550c3a5305180e2bc08c03e21aa45068df55b0d7676bf57be1880ba51a84458c17241ebedea485fafa9ef16b4024
   languageName: node
   linkType: hard
 

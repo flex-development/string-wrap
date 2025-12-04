@@ -35,7 +35,6 @@ export default space
  * Resolve the events parsed by {@linkcode tokenizeSpace}.
  *
  * @see {@linkcode Event}
- * @see {@linkcode TokenizeContext}
  *
  * @this {void}
  *
@@ -54,14 +53,22 @@ function resolveSpace(this: void, events: Event[]): Event[] {
   // start a new line if a space cannot fit,
   // or add the space to the current line if the line already has content.
   // if the line has no content, but should not be trimmed, also add the space.
-  if (width(self.line) + token.value.length > self.cols) self.flush()
-  else if (self.line || !self.trim) self.line += token.value
+  if (width(self.line) + token.value.length > self.cols) {
+    self.flush()
+    if (!self.trim) self.line += token.value
+  } else if (width(self.line) || !self.trim) {
+    // this space belongs on the newline specified by `self.string`.
+    // drop the last line (which is empty) to prevent duplicate newlines.
+    // when the current line is flushed, it'll replace the popped line.
+    if (self.events.at(-3)?.[1].type === tt.eol) self.lines.pop()
+    self.line += token.value
+  }
 
   return events
 }
 
 /**
- * Tokenize a space character.
+ * Tokenize a space.
  *
  * @see {@linkcode Effects}
  * @see {@linkcode State}

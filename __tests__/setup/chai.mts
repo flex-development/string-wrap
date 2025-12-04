@@ -4,10 +4,12 @@
  * @see https://chaijs.com
  */
 
-import chaiEach from '#tests/plugins/chai-each'
+import each from '#tests/plugins/chai/each'
+import satisfyColumns from '#tests/plugins/chai/satisfy-columns'
 import { chai } from 'vitest'
 
 /**
  * initialize chai plugins.
  */
-chai.use(chaiEach)
+chai.use(each)
+chai.use(satisfyColumns)

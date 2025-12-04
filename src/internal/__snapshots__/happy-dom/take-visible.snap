@@ -2,12 +2,14 @@
 
 exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["\\u001b[1m🦄🦾🚀\\u001b[22m", "1"]) 1`] = `"\\u001b[1m🦄"`;
 
-exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["\\u001b[4m0123456789\\u001b[24m", 3]) 1`] = `"\\u001b[4m012"`;
+exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["\\u001b[4m0123456789\\n\\u001b[24m", 3]) 1`] = `"\\u001b[4m012"`;
 
 exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["\\u001b[32mdog\\u001b[39m", "1"]) 1`] = `"\\u001b[32md"`;
 
 exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["\\u001b[32mhello\\u001b[39mworld", "5"]) 1`] = `"\\u001b[32mhello\\u001b[39m"`;
 
-exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["0123456789", "3"]) 1`] = `"012"`;
+exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["0123456789\\n", "3"]) 1`] = `"012"`;
+
+exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["d\\u001b[39m", "1"]) 1`] = `"d\\u001b[39m"`;
 
 exports[`unit:internal/takeVisible > should return longest substring that fits into \`columns\` (["🦄🦾🚀", 1]) 1`] = `"🦄"`;

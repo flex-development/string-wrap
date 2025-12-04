@@ -34,7 +34,6 @@ export default eol
  * Resolve the events parsed by {@linkcode tokenizeLineEnding}.
  *
  * @see {@linkcode Event}
- * @see {@linkcode TokenizeContext}
  *
  * @this {void}
  *

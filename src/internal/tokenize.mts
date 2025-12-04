@@ -9,6 +9,7 @@ import sequence from '#constructs/sequence'
 import space from '#constructs/space'
 import gs from '#internal/gs'
 import margin from '#internal/margin'
+import { ansiRegex } from '@flex-development/ansi-regex'
 import {
   chars,
   codes,
@@ -17,6 +18,7 @@ import {
   type TokenizeContext
 } from '@flex-development/fsm-tokenizer'
 import type { Config, Options } from '@flex-development/string-wrap'
+import stripAnsi from '@flex-development/strip-ansi'
 import { ok } from 'devlop'
 
 export default tokenize
@@ -122,45 +124,53 @@ function tokenize(
     tabSize: config.tabSize ?? +chars.digit2
   })
 
+  // write chunks.
+  void chunks(context.trim ? trimEnd(context.string) : context.string, / /g)
+
+  return context
+
   /**
-   * The index where the last match ends.
+   * Write chunks to the tokenizer.
    *
-   * @var {number} index
+   * @this {void}
+   *
+   * @param {string} input
+   *  The string to chunk
+   * @param {RegExp} chunker
+   *  The regular expression used to create chunks
+   * @return {undefined}
    */
-  let index: number = 0
-
-  // write chunks to the tokenizer.
-  for (const match of context.string.matchAll(/ /g)) {
+  function chunks(this: void, input: string, chunker: RegExp): undefined {
     /**
-     * The index at which the match was found.
+     * The index where the last match ends.
      *
-     * @const {number} start
+     * @var {number} index
      */
-    const start: number = match.index
+    let index: number = 0
 
-    /**
-     * The index at which the match ends.
-     *
-     * @const {number} end
-     */
-    const end: number = start + match[0].length
+    // write chunks to the tokenizer.
+    for (const { 0: match, index: start } of input.matchAll(chunker)) {
+      /**
+       * The index at which the match ends.
+       *
+       * @const {number} end
+       */
+      const end: number = start + match.length
 
-    // text between matches
-    if (start > index) context.write(context.string.slice(index, start))
+      // text between matches.
+      if (start > index) context.write(input.slice(index, start))
 
-    // the match itself
-    for (const code of context.preprocess(match[0], null, false)) {
-      context.write(code)
+      // the match itself.
+      for (const code of context.preprocess(match, null)) context.write(code)
+      index = end
     }
 
-    index = end
+    // remaining tail text.
+    index < input.length && context.write(input.slice(index))
+
+    // signal end of content.
+    return void context.write(codes.eof)
   }
-
-  // remaining tail text.
-  context.write(context.string.slice(index))
-
-  // signal end of content and return event list.
-  return context.write(codes.eof), context
 
   /**
    * Finalize the tokenization context.
@@ -192,8 +202,16 @@ function tokenize(
     self.cols -= gs.countGraphemes(self.padLeft + self.padRight)
     self.cols = Math.max(0, self.cols)
 
+    // get ansi escape code remover.
+    self.stripAnsi = typeof config.stripAnsi === 'function'
+      ? config.stripAnsi
+      : stripAnsi
+
     // capture the string to wrap.
     self.string = self.stringify(thing)
+
+    // remove ansi escape codes.
+    if (config.stripAnsi) self.string = self.stripAnsi(self.string)
 
     return void self
   }
@@ -201,14 +219,12 @@ function tokenize(
   /**
    * Start a new line.
    *
-   * @todo dynamic indent/padding
-   *
    * @this {TokenizeContext}
    *
    * @return {undefined}
    */
   function flush(this: TokenizeContext): undefined {
-    if (this.trim) this.line = this.line.trimEnd()
+    if (this.trim) this.line = trimEnd(this.line)
 
     ok(typeof this.indent === 'string', 'expected string `indent`')
     ok(typeof this.padLeft === 'string', 'expected string `padLeft`')
@@ -218,5 +234,48 @@ function tokenize(
     this.line = chars.empty
 
     return void 0
+  }
+
+  /**
+   * Remove any whitespace (spaces and tabs, but not line terminators)
+   * from the end of a line.
+   *
+   * If an ANSI escape code ends a line, and any trimmable characters are
+   * found before it (up to the first non-trimmable character),
+   * those characters will also be removed.
+   *
+   * @this {void}
+   *
+   * @param {string} line
+   *  The line to trim
+   * @return {string}
+   *  The trimmed line
+   */
+  function trimEnd(this: void, line: string): string {
+    line = line.replace(/[\t ]+$/, chars.empty)
+
+    /**
+     * List of ANSI escape code matches.
+     *
+     * @const {RegExpExecArray[]} ansis
+     */
+    const ansis: RegExpExecArray[] = [...line.matchAll(ansiRegex())]
+
+    // check for ansi escape codes at the end of line and retrim.
+    if (ansis.length) {
+      /**
+       * Last ANSI escape code match.
+       *
+       * @const {RegExpExecArray} lastAnsi
+       */
+      const lastAnsi: RegExpExecArray = ansis.at(-1)!
+
+      // ansi escape code found at end of match, retrim.
+      if (lastAnsi.index + lastAnsi[0].length === line.length) {
+        line = line.slice(0, lastAnsi.index).trimEnd() + lastAnsi[0]
+      }
+    }
+
+    return line
   }
 }

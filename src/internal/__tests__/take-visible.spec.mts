@@ -24,8 +24,9 @@ describe('unit:internal/takeVisible', () => {
     [colors.underline(digitSequence), +chars.digit3],
     [colors.green('dog'), chars.digit1],
     [colors.green('hello') + 'world', chars.digit5],
-    [emojiSequence, +chars.digit1],
-    [digitSequence, chars.digit3]
+    [digitSequence, chars.digit3],
+    ['d\x1B[39m', chars.digit1],
+    [emojiSequence, +chars.digit1]
   ])('should return longest substring that fits into `columns` ([%j, %j])', (
     sequence,
     columns

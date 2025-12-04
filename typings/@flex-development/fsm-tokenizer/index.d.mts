@@ -1,6 +1,6 @@
 import tt from '#enums/tt'
 import type {} from '@flex-development/fsm-tokenizer'
-import type { Config, ToString } from '@flex-development/string-wrap'
+import type { Config, StripAnsi, ToString } from '@flex-development/string-wrap'
 
 declare module '@flex-development/fsm-tokenizer' {
   interface TokenInfo {
@@ -112,5 +112,15 @@ declare module '@flex-development/fsm-tokenizer' {
      * @override
      */
     stringify: ToString
+
+    /**
+     * Remove ANSI escape codes from a string.
+     *
+     * @see {@linkcode StripAnsi}
+     *
+     * @internal
+     * @override
+     */
+    stripAnsi: StripAnsi
   }
 }

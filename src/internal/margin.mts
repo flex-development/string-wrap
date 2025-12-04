@@ -14,9 +14,9 @@ import { chars } from '@flex-development/fsm-tokenizer'
  *
  * @param {number | string | null | undefined} pad
  *  The size of the string to use for a margin (as a number or numeric),
- *  or a string used for the margin on either side of a line
+ *  or the string itself
  * @return {string}
- *  The string to use for padding
+ *  The margin string
  */
 function margin(this: void, pad: number | string | null | undefined): string {
   return typeof pad === 'number'

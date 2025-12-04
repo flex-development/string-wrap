@@ -3,7 +3,7 @@
  * @module string-wrap/interfaces/Options
  */
 
-import type { ToString } from '@flex-development/string-wrap'
+import type { StripAnsi, ToString } from '@flex-development/string-wrap'
 
 /**
  * Options for wrapping a string.
@@ -37,19 +37,20 @@ interface Options {
   hard?: boolean | null | undefined
 
   /**
-   * The size of the indent, or a string used to indent each line.
+   * The size of the string to use for indenting each line (as a number or
+   * numeric), or the string itself.
    */
   indent?: number | string | null | undefined
 
   /**
    * The size of the string to use for padding the left side of each line (as a
-   * number or numeric), or the string to use.
+   * number or numeric), or the string itself.
    */
   padLeft?: number | string | null | undefined
 
   /**
    * The size of the string to use for padding the right side of each line (as a
-   * number or numeric), or the string to use.
+   * number or numeric), or the string itself.
    */
   padRight?: number | string | null | undefined
 
@@ -59,6 +60,14 @@ interface Options {
    * @see {@linkcode ToString}
    */
   stringify?: ToString | null | undefined
+
+  /**
+   * Whether to remove ANSI escape codes before wrapping,
+   * or a function to remove ANSI escape codes.
+   *
+   * @see {@linkcode StripAnsi}
+   */
+  stripAnsi?: StripAnsi | boolean | null | undefined
 
   /**
    * The number of spaces a tab is equivalent to.

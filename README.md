@@ -28,6 +28,7 @@ Wrap a string
   - [`LinePadding`](#linepadding)
   - [`LinesInfo`](#linesinfo)
   - [`Options`](#options)
+  - [`StripAnsi`](#stripansi)
   - [`ToString<[T]>`](#tostringt)
 - [Contribute](#contribute)
 
@@ -195,13 +196,15 @@ Options for wrapping a string (`interface`).
   setting this to `true` will break long words.
   > 👉 **note**: setting this to `true` will break words.
 - `indent?` (`number` | `string` | `null` | `undefined`, optional)
-  — the size of the indent, or a string used to indent each line
+  — the size of the string to use for indenting each line (as a number or numeric), or the string itself
 - `padLeft?` (`number` | `string` | `null` | `undefined`, optional)
-  — the size of the string to use for padding the left side of each line (as a number or numeric), or the string to use
+  — the size of the string to use for padding the left side of each line (as a number or numeric), or the string itself
 - `padRight?` (`number` | `string` | `null` | `undefined`, optional)
-  — the size of the string to use for padding the right side of each line (as a number or numeric), or the string to use
+  — the size of the string to use for padding the right side of each line (as a number or numeric), or the string itself
 - `stringify?` ([`ToString`](#tostringt) | `null` | `undefined`, optional)
   — convert a value to a string
+- `stripAnsi?` ([`StripAnsi`](#stripansi) | `boolean` | `null` | `undefined`, optional)
+  — whether to remove ANSI escape codes before wrapping, or a function to remove ANSI escape codes
 - `tabSize?` (`number` | `null` | `undefined`, optional)
   — the number of spaces a tab is equivalent to
   - default: `2`
@@ -209,6 +212,23 @@ Options for wrapping a string (`interface`).
   — whether to remove whitespace from the end of each line
   > 👉 **note**: lines are trimmed before applying indents or padding.
   - default: `true`
+
+### `StripAnsi`
+
+Remove ANSI escape codes from a string (`type`).
+
+```ts
+type StripAnsi = (this: void, string: string) => string
+```
+
+#### Parameters
+
+- `string` (`string`)
+  — the string containing ANSI escape codes
+
+#### Returns
+
+(`string`) The string with ANSI escape codes removed
 
 ### `ToString<[T]>`
 

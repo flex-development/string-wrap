@@ -66,6 +66,30 @@ function takeVisible(
     if (index < last) continue // skip clusters in ansi escape codes.
 
     /**
+     * The remaining graphemes in the {@linkcode sequence}.
+     *
+     * @const {string[]} rest
+     */
+    const rest: string[] = index ? graphemes.slice(index) : graphemes
+
+    /**
+     * A regular expression match array indicating whether the remaining portion
+     * of the {@linkcode sequence} begins with an ANSI escape code.
+     *
+     * @const {RegExpMatchArray | null} match
+     */
+    const match: RegExpMatchArray | null = index
+      ? rest.join(chars.empty).match(ansi)
+      : sequence.match(ansi)
+
+    // move index of last grapheme cluster to end of ansi escape code.
+    if (match) {
+      last = index + match[0].length
+      if (index) last--
+      continue
+    }
+
+    /**
      * The visual width of the current grapheme.
      *
      * @const {number} size
@@ -78,24 +102,6 @@ function takeVisible(
     // grapheme cluster fits -- include in substring.
     width += size // increase visual width.
     last = index // capture index of last grapheme cluster in substring.
-
-    /**
-     * The remaining graphemes in the {@linkcode sequence}.
-     *
-     * @const {string[]} rest
-     */
-    const rest: string[] = last ? graphemes.slice(last + 1) : graphemes
-
-    /**
-     * A regular expression match array indicating whether the remaining portion
-     * of the {@linkcode sequence} begins with an ANSI escape code.
-     *
-     * @const {RegExpMatchArray | null} match
-     */
-    const match: RegExpMatchArray | null = rest.join(chars.empty).match(ansi)
-
-    // move index of last grapheme cluster to end of ansi escape code.
-    if (match) last = index + match[0].length
   }
 
   return graphemes.slice(0, last + 1).join(chars.empty)

@@ -4,8 +4,8 @@
  */
 
 /**
- * Several sequences that spell out "foo bar".
+ * The string "   foo   bar   ".
  *
  * @type {string}
  */
-export default 'foo bar'
+export default '   foo   bar   '

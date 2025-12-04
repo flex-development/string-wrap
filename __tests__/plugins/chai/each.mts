@@ -1,6 +1,6 @@
 /**
- * @file Plugins - chaiEach
- * @module tests/plugins/chaiEach
+ * @file Plugins - each
+ * @module tests/plugins/chai/each
  */
 
 export default plugin

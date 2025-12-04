@@ -4,7 +4,7 @@
  */
 
 import type TestSubject from '#interfaces/options'
-import type { ToString } from '@flex-development/string-wrap'
+import type { StripAnsi, ToString } from '@flex-development/string-wrap'
 import type { Nilable, OptionalKeys } from '@flex-development/tutils'
 
 describe('unit-d:interfaces/Options', () => {
@@ -52,6 +52,12 @@ describe('unit-d:interfaces/Options', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('stringify')
       .toEqualTypeOf<Nilable<ToString>>()
+  })
+
+  it('should match [stripAnsi?: StripAnsi | boolean | null | undefined]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('stripAnsi')
+      .toEqualTypeOf<Nilable<StripAnsi | boolean>>()
   })
 
   it('should match [tabSize?: number | null | undefined]', () => {

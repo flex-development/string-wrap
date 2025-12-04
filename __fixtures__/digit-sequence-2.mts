@@ -3,12 +3,12 @@
  * @module fixtures/digitSequence2
  */
 
-import digitsReversed from '#fixtures/digits-reversed'
+import digitSequence from '#fixtures/digit-sequence'
 import { chars } from '@flex-development/fsm-tokenizer'
 
 /**
- * Another sequence containing only digits.
+ * A sequence containing only digits and a space.
  *
  * @type {string}
  */
-export default digitsReversed.join(chars.empty)
+export default digitSequence + chars.space

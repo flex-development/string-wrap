@@ -36,6 +36,17 @@ declare global {
        * Perform assertions on each item in a list.
        */
       each: Assertion
+
+      /**
+       * Check if a line without ANSI escape codes has
+       * no more graphemes than the specified number of columns.
+       *
+       * @param {number | string} columns
+       *  The maximum (inclusive) number of columns
+       * @return {Assertion}
+       *  An assertion instance
+       */
+      satisfyColumns(columns: number | string): Assertion
     }
   }
 }

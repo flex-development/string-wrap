@@ -1,6 +1,35 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`unit:lib/wrap > should return wrapped string 1`] = `
+exports[`unit:lib/wrap > should return wrapped string (0) 1`] = `
+"The
+[1mquick[22m
+brown
+[31mfox
+jumped
+over
+[39mthe
+[3mlazy[23m
+[32mdog
+and
+then
+ran
+away
+with
+the
+unicorn.[39m"
+`;
+
+exports[`unit:lib/wrap > should return wrapped string (1) 1`] = `
+"Options are defined with the
+[[36m.option()[39m](#commandoptioninfo-data) and
+[[36m.options()[39m](#commandoptionsinfos) methods, which also serve
+as documentation for the options.
+Each option can have at most 2 flags, typically one long
+flag and one short or shortish (e.g. [36m-w[39m, [36m--ws[39m) flag. Flags
+can be separated by commas ([36m,[39m), pipes ([36m|[39m), or spaces ([36m [39m)."
+`;
+
+exports[`unit:lib/wrap > should return wrapped string (2) 1`] = `
 "Parsed options can be accessed by calling [\`.opts<T>()\`](#commandoptst)
 on a [\`Command\`](#commandinfo) object, and are passed to the command's
 [\`action\`](#commandactionaction) handler.

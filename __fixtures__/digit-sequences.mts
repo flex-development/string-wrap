@@ -11,4 +11,4 @@ import { chars } from '@flex-development/fsm-tokenizer'
  *
  * @type {string}
  */
-export default digits.join(chars.space)
+export default digits.join(chars.space) + chars.lf

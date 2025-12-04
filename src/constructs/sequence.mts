@@ -7,7 +7,6 @@ import tt from '#enums/tt'
 import takeVisible from '#internal/take-visible'
 import {
   eof,
-  ev,
   type Code,
   type Construct,
   type Effects,
@@ -39,7 +38,6 @@ export default sequence
  * Resolve the events parsed by {@linkcode tokenizeSequence}.
  *
  * @see {@linkcode Event}
- * @see {@linkcode TokenizeContext}
  *
  * @this {void}
  *
@@ -50,25 +48,58 @@ export default sequence
  */
 function resolveSequence(this: void, events: Event[]): Event[] {
   assert(events.length === 2, 'expected `2` events')
+  const [, token, self] = events[0]!
+
+  // get token value.
+  token.value = self.sliceSerialize(token)
 
   /**
-   * Index of current event.
+   * The number of columns required to display the sequence.
    *
-   * @var {number} index
+   * @const {number} seq
    */
-  let index: number = -1
+  const seq: number = width(token.value)
 
-  // add sequences to the current line,
-  // or start a new line if the sequence cannot fit.
-  while (++index < events.length) {
-    assert(events[index], 'expected event')
-    const [event, token, self] = events[index]!
+  // fill columns completely,
+  // or break long sequences that don't fit on the current line.
+  if (self.fill || (seq > self.cols && self.hard)) {
+    /**
+     * The current sequence.
+     *
+     * @var {string} sequence
+     */
+    let sequence: string = token.value
 
-    // get token value on enter.
-    assert(event === ev.enter, 'expected `enter` event')
-    assert(token.type === tt.sequence, 'expected `sequence` token')
-    token.value = self.sliceSerialize(token)
+    // put as much of the sequence onto the current as line as possible,
+    // pushing onto the next once the line has no more available columns.
+    while (sequence.length) {
+      /**
+       * The remaining number of columns available.
+       *
+       * @const {number} space
+       */
+      const space: number = self.cols - width(self.line)
 
+      /**
+       * The longest prefix of {@linkcode sequence} that fits into the
+       * remaining {@linkcode space} on the current line.
+       *
+       * @const {string} take
+       */
+      const take: string = takeVisible(sequence, space)
+
+      // start new line if there is no space.
+      if (space <= 0) self.flush()
+
+      // add to current line,
+      // and remove the piece of the sequence that was already processed.
+      self.line += take
+      if (take) sequence = sequence.slice(take.length)
+
+      // start new line if there is no more space.
+      if (width(self.line) === self.cols) self.flush()
+    }
+  } else {
     /**
      * The number of columns required to display the current line.
      *
@@ -76,74 +107,19 @@ function resolveSequence(this: void, events: Event[]): Event[] {
      */
     const columns: number = width(self.line)
 
-    /**
-     * The number of columns required to display the sequence.
-     *
-     * @const {number} seq
-     */
-    const seq: number = width(token.value)
-
-    // fill columns completely,
-    // or break long sequences that don't fit on the current line.
-    if (self.fill || (seq > self.cols && self.hard)) {
-      /**
-       * The current sequence.
-       *
-       * @var {string} sequence
-       */
-      let sequence: string = token.value
-
-      // put as much of the sequence onto the current as line as possible,
-      // pushing onto the next once the line has no more available columns.
-      while (sequence.length) {
-        /**
-         * The remaining number of columns available.
-         *
-         * @const {number} space
-         */
-        const space: number = self.cols - width(self.line)
-
-        /**
-         * The longest prefix of {@linkcode sequence} that fits into the
-         * remaining {@linkcode space} on the current line.
-         *
-         * @const {string} take
-         */
-        const take: string = takeVisible(sequence, space)
-
-        // start new line if there is no space.
-        if (space <= 0) self.flush()
-
-        // add to current line
-        // and remove the piece of the sequence that was already processed.
-        self.line += take
-        sequence = sequence.slice(take.length)
-
-        // start new line if there is no space.
-        if (width(self.line) === self.cols) self.flush()
-      }
-
-      // move onto event after sequence exit event.
-      index++
-      continue
-    }
-
     // start new line if sequence cannot fit.
     if (columns && columns + seq > self.cols) self.flush()
 
     // sequence fits on line normally, or soft wrap is enabled
     // and long words may extend past the configured column width.
     self.line += token.value
-
-    // move onto the next enter event.
-    index++
   }
 
   return events
 }
 
 /**
- * Tokenize a sequence of characters that should remain unbroken when wrapped.
+ * Tokenize a sequence of characters.
  *
  * @see {@linkcode Effects}
  * @see {@linkcode State}

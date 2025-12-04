@@ -3,19 +3,16 @@
  * @module fixtures/digitSequences2
  */
 
-import digitSequence2 from '#fixtures/digit-sequence-2'
-import digitsReversed from '#fixtures/digits-reversed'
+import digitSequence from '#fixtures/digit-sequence'
 import { chars } from '@flex-development/fsm-tokenizer'
 
 /**
- * A string containing a delimiter, line breaks, and digits.
+ * A string containing digits and a line break.
  *
  * @type {string}
  */
-export default chars.minus.repeat(3) +
-  chars.lf +
-  digitSequence2 +
-  chars.lf +
-  digitsReversed.slice(1).join(chars.empty) +
+export default digitSequence.trimEnd().slice(1, -1) +
   chars.crlf +
-  digitsReversed.slice(2).join(chars.empty)
+  chars.digit9 +
+  digitSequence.trimEnd() +
+  chars.digit0
