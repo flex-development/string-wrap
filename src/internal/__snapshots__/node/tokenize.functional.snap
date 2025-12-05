@@ -3586,6 +3586,18 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 }
 `;
 
+exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (10) 1`] = `
+{
+  "candidate": ""first value in starting sequence\\n  choices: [\\"0\\",\\"1\\",\\"2\\",\\"3\\",\\"4\\",\\"5\\",\\"6\\",\\"7\\",\\"8\\",\\"9\\"]"",
+  "cols": 66,
+  "columns": 66,
+  "lines": [
+    "first value in starting sequence",
+    "  choices: ["0","1","2","3","4","5","6","7","8","9"]",
+  ],
+}
+`;
+
 exports[`functional:internal/tokenize > options.trim > should trim whitespace only on actual wrapped lines if enabled (0) 1`] = `
 {
   "candidate": ""   foo   bar   "",

@@ -57,11 +57,14 @@ function resolveSpace(this: void, events: Event[]): Event[] {
     self.flush()
     if (!self.trim) self.line += token.value
   } else if (width(self.line) || !self.trim) {
+    self.line += token.value
+
     // this space belongs on the newline specified by `self.string`.
     // drop the last line (which is empty) to prevent duplicate newlines.
     // when the current line is flushed, it'll replace the popped line.
-    if (self.events.at(-3)?.[1].type === tt.eol) self.lines.pop()
-    self.line += token.value
+    if (self.events.at(-3)?.[1].type === tt.eol && !self.lines.at(-1)) {
+      self.lines.pop()
+    }
   }
 
   return events

@@ -12,6 +12,7 @@ import ansiFixture07 from '#fixtures/ansi-fixture-07'
 import ansiFixture08 from '#fixtures/ansi-fixture-08'
 import ansiFixture09 from '#fixtures/ansi-fixture-09'
 import ansiFixture10 from '#fixtures/ansi-fixture-10'
+import cliArgumentHelp from '#fixtures/cli-argument-help'
 import digitSequence from '#fixtures/digit-sequence'
 import digitSequence2 from '#fixtures/digit-sequence-2'
 import digitSequences from '#fixtures/digit-sequences'
@@ -507,7 +508,8 @@ describe('functional:internal/tokenize', () => {
       [fooBar2, chars.digit3],
       [ansiFixture07, 100],
       [colors.bgGreen(`  ${colors.black('ok')}  `), 100],
-      [ansiFixture10, chars.digit8]
+      [ansiFixture10, chars.digit8],
+      [cliArgumentHelp, 66]
     ])('should not trim lines if disabled (%#)', (thing, columns) => {
       // Act
       const result = testSubject(thing, columns, { trim: false })
