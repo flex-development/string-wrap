@@ -1,3 +1,13 @@
+## [1.0.1](https://github.com/flex-development/string-wrap/compare/1.0.0...1.0.1) (2025-12-05)
+
+### :package: Build
+
+- [[`81d4087`](https://github.com/flex-development/string-wrap/commit/81d40877b97221fd58aa795f4bc91e4bbaf6d079)] **deps-dev:** Bump the commitlint group with 2 updates ([#11](https://github.com/flex-development/string-wrap/issues/11))
+
+### :bug: Fixes
+
+- [[`3c8fa48`](https://github.com/flex-development/string-wrap/commit/3c8fa48112bd80dadd29b02261d120142bd19daf)] **internal:** space resolution after eol without trimming
+
 ## 1.0.0 (2025-12-04)
 
 ### :package: Build
@@ -34,5 +44,6 @@
 ### :mechanical_arm: Refactors
 
 - [[`570f7c9`](https://github.com/flex-development/string-wrap/commit/570f7c96bbfd41df6a4a0d615c511fc92a3b4b00)] **internal:** [`takeVisible`] add ansi support
+
 
 
