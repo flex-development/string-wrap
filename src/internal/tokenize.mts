@@ -17,7 +17,11 @@ import {
   initialize,
   type TokenizeContext
 } from '@flex-development/fsm-tokenizer'
-import type { Config, Options } from '@flex-development/string-wrap'
+import type {
+  Config,
+  Options,
+  SpacerFunction
+} from '@flex-development/string-wrap'
 import stripAnsi from '@flex-development/strip-ansi'
 import { ok } from 'devlop'
 
@@ -189,17 +193,17 @@ function tokenize(
     self.fill = config.fill
     self.flush = flush.bind(self)
     self.hard = config.hard
-    self.indent = margin(config.indent)
+    self.indent = spacing(config.indent)
     self.line = chars.empty
     self.lines = []
-    self.padLeft = margin(config.padLeft)
-    self.padRight = margin(config.padRight)
+    self.padLeft = spacing(config.padLeft)
+    self.padRight = spacing(config.padRight)
     self.stringify = config.stringify ?? String
     self.trim = config.trim ?? true
 
     // get available columns.
-    self.cols -= gs.countGraphemes(self.indent)
-    self.cols -= gs.countGraphemes(self.padLeft + self.padRight)
+    self.cols -= gs.countGraphemes(self.indent(0))
+    self.cols -= gs.countGraphemes(self.padLeft(0) + self.padRight(0))
     self.cols = Math.max(0, self.cols)
 
     // get ansi escape code remover.
@@ -217,23 +221,81 @@ function tokenize(
   }
 
   /**
-   * Start a new line.
+   * Store a line and start the next one.
    *
    * @this {TokenizeContext}
    *
    * @return {undefined}
    */
   function flush(this: TokenizeContext): undefined {
+    // remove whitespace from end of line
+    // and any whitespace immediately before ansi escape codes at end of line.
     if (this.trim) this.line = trimEnd(this.line)
 
-    ok(typeof this.indent === 'string', 'expected string `indent`')
-    ok(typeof this.padLeft === 'string', 'expected string `padLeft`')
-    ok(typeof this.padRight === 'string', 'expected string `padRight`')
+    // indent and pad line.
+    this.line = this.padLeft(this.lines.length, this.lines) + this.line
+    this.line = this.indent(this.lines.length, this.lines) + this.line
+    this.line += this.padRight(this.lines.length, this.lines)
 
-    this.lines.push(this.indent + this.padLeft + this.line + this.padRight)
-    this.line = chars.empty
+    // add new line.
+    this.lines.push(this.line)
 
-    return void 0
+    // re-calculate available columns for the next line.
+    this.cols = this.columns
+    this.cols -= gs.countGraphemes(this.indent(this.lines.length, this.lines))
+    this.cols -= gs.countGraphemes(this.padLeft(this.lines.length, this.lines))
+    this.cols -= gs.countGraphemes(this.padRight(this.lines.length, this.lines))
+    this.cols = Math.max(0, this.cols)
+
+    return this.line = chars.empty, void 0
+  }
+
+  /**
+   * Create a spacer function.
+   *
+   * @this {void}
+   *
+   * @param {SpacerFunction | number | string | null | undefined} init
+   *  The spacing function, the size of the spacing string,
+   *  or the string to use
+   * @return {SpacerFunction<string>}
+   *  Spacer function
+   */
+  function spacing(
+    this: void,
+    init: SpacerFunction | number | string | null | undefined
+  ): SpacerFunction<string> {
+    if (typeof init === 'function') {
+      /**
+       * @this {void}
+       *
+       * @param {number} index
+       *  The index of the current line
+       * @param {ReadonlyArray<string> | null | undefined} [lines]
+       *  The current list of lines
+       * @return {string}
+       *  The spacer
+       */
+      return function spacer(
+        this: void,
+        index: number,
+        lines?: readonly string[] | null | undefined
+      ): string {
+        ok(typeof init === 'function', 'expected spacer `init` function')
+        return margin(init(index, lines))
+      }
+    }
+
+    /**
+     * @this {void}
+     *
+     * @return {string}
+     *  The spacer
+     */
+    return function spacer(this: void): string {
+      ok(typeof init !== 'function', 'expected no spacer `init` function')
+      return margin(init)
+    }
   }
 
   /**

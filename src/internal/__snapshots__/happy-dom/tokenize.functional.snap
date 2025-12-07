@@ -3350,7 +3350,7 @@ exports[`functional:internal/tokenize > options.indent > should indent each line
   "candidate": ""The quick brown fox jumped over the lazy dog"",
   "cols": 18,
   "columns": 20,
-  "indent": "  ",
+  "indent": [Function spacer],
   "lines": [
     "  The quick brown",
     "  fox jumped over",
@@ -3361,10 +3361,24 @@ exports[`functional:internal/tokenize > options.indent > should indent each line
 
 exports[`functional:internal/tokenize > options.indent > should indent each line (1) 1`] = `
 {
+  "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
+  "cols": 24,
+  "columns": 30,
+  "indent": [Function spacer],
+  "lines": [
+    "The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped",
+    "  over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then",
+    "    ran away with the unicorn.\\u001b[39m",
+  ],
+}
+`;
+
+exports[`functional:internal/tokenize > options.indent > should indent each line (2) 1`] = `
+{
   "candidate": ""hello\\r\\nworld 🌎"",
   "cols": 6,
   "columns": 7,
-  "indent": " ",
+  "indent": [Function spacer],
   "lines": [
     " hello",
     " world",
@@ -3383,8 +3397,8 @@ exports[`functional:internal/tokenize > options.pad* > should add padding to eac
     "  🦾",
     "  🚀",
   ],
-  "padLeft": "  ",
-  "padRight": "",
+  "padLeft": [Function spacer],
+  "padRight": [Function spacer],
 }
 `;
 
@@ -3406,12 +3420,34 @@ exports[`functional:internal/tokenize > options.pad* > should add padding to eac
     "9    ",
     "    ",
   ],
-  "padLeft": "",
-  "padRight": "    ",
+  "padLeft": [Function spacer],
+  "padRight": [Function spacer],
 }
 `;
 
 exports[`functional:internal/tokenize > options.pad* > should add padding to each line (2) 1`] = `
+{
+  "candidate": ""0 1 2 3 4 5 6 7 8 9"",
+  "cols": 1,
+  "columns": 13,
+  "lines": [
+    "     |0|     ",
+    "     |1|     ",
+    "     |2|     ",
+    "     |3|     ",
+    "     |4|     ",
+    "     |5|     ",
+    "     |6|     ",
+    "     |7|     ",
+    "     |8|     ",
+    "     |9|     ",
+  ],
+  "padLeft": [Function spacer],
+  "padRight": [Function spacer],
+}
+`;
+
+exports[`functional:internal/tokenize > options.pad* > should add padding to each line (3) 1`] = `
 {
   "candidate": ""The quick brown fox jumped over the lazy dog"",
   "cols": 18,
@@ -3421,8 +3457,8 @@ exports[`functional:internal/tokenize > options.pad* > should add padding to eac
     " fox jumped over ",
     " the lazy dog ",
   ],
-  "padLeft": " ",
-  "padRight": " ",
+  "padLeft": [Function spacer],
+  "padRight": [Function spacer],
 }
 `;
 

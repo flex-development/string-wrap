@@ -1,6 +1,11 @@
 import tt from '#enums/tt'
 import type {} from '@flex-development/fsm-tokenizer'
-import type { Config, StripAnsi, ToString } from '@flex-development/string-wrap'
+import type {
+  Config,
+  SpacerFunction,
+  StripAnsi,
+  ToString
+} from '@flex-development/string-wrap'
 
 declare module '@flex-development/fsm-tokenizer' {
   interface TokenInfo {
@@ -59,12 +64,14 @@ declare module '@flex-development/fsm-tokenizer' {
     flush(this: void): undefined
 
     /**
-     * The string used to indent each line.
+     * Get the string used to indent a line.
+     *
+     * @see {@linkcode SpacerFunction}
      *
      * @internal
      * @override
      */
-    indent: string
+    indent: SpacerFunction<string>
 
     /**
      * The current line text without indentation or padding.
@@ -81,20 +88,24 @@ declare module '@flex-development/fsm-tokenizer' {
     lines: string[]
 
     /**
-     * The string used to pad the left side of each line.
+     * Get the string used to pad the left side of a line.
+     *
+     * @see {@linkcode SpacerFunction}
      *
      * @internal
      * @override
      */
-    padLeft: string
+    padLeft: SpacerFunction<string>
 
     /**
-     * The string used to pad the right side of each line.
+     * Get the string used to pad the right side of a line.
+     *
+     * @see {@linkcode SpacerFunction}
      *
      * @internal
      * @override
      */
-    padRight: string
+    padRight: SpacerFunction<string>
 
     /**
      * The string to wrap.

@@ -3,7 +3,7 @@
  * @module string-wrap/interfaces/Options
  */
 
-import type { StripAnsi, ToString } from '@flex-development/string-wrap'
+import type { Spacer, StripAnsi, ToString } from '@flex-development/string-wrap'
 
 /**
  * Options for wrapping a string.
@@ -37,22 +37,28 @@ interface Options {
   hard?: boolean | null | undefined
 
   /**
-   * The size of the string to use for indenting each line (as a number or
-   * numeric), or the string itself.
+   * A spacer function, the size of the string to use for indenting each line
+   * (as a number or numeric), or the string itself.
+   *
+   * @see {@linkcode Spacer}
    */
-  indent?: number | string | null | undefined
+  indent?: Spacer | null | undefined
 
   /**
-   * The size of the string to use for padding the left side of each line (as a
-   * number or numeric), or the string itself.
+   * A spacer function, the size of the string to use for padding the left side
+   * of each line (as a number or numeric), or the string itself.
+   *
+   * @see {@linkcode Spacer}
    */
-  padLeft?: number | string | null | undefined
+  padLeft?: Spacer | null | undefined
 
   /**
-   * The size of the string to use for padding the right side of each line (as a
-   * number or numeric), or the string itself.
+   * A spacer function, the size of the string to use for padding the right
+   * side of each line (as a number or numeric), or the string itself.
+   *
+   * @see {@linkcode Spacer}
    */
-  padRight?: number | string | null | undefined
+  padRight?: Spacer | null | undefined
 
   /**
    * Convert a value to a string.

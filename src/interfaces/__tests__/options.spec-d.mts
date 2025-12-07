@@ -4,7 +4,7 @@
  */
 
 import type TestSubject from '#interfaces/options'
-import type { StripAnsi, ToString } from '@flex-development/string-wrap'
+import type { Spacer, StripAnsi, ToString } from '@flex-development/string-wrap'
 import type { Nilable, OptionalKeys } from '@flex-development/tutils'
 
 describe('unit-d:interfaces/Options', () => {
@@ -30,22 +30,22 @@ describe('unit-d:interfaces/Options', () => {
       .toEqualTypeOf<Nilable<boolean>>()
   })
 
-  it('should match [indent?: number | string | null | undefined]', () => {
+  it('should match [indent?: Spacer | null | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('indent')
-      .toEqualTypeOf<Nilable<number | string>>()
+      .toEqualTypeOf<Nilable<Spacer>>()
   })
 
-  it('should match [padLeft?: number | string | null | undefined]', () => {
+  it('should match [padLeft?: Spacer | null | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('padLeft')
-      .toEqualTypeOf<Nilable<number | string>>()
+      .toEqualTypeOf<Nilable<Spacer>>()
   })
 
-  it('should match [padRight?: number | string | null | undefined]', () => {
+  it('should match [padRight?: Spacer | null | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('padRight')
-      .toEqualTypeOf<Nilable<number | string>>()
+      .toEqualTypeOf<Nilable<Spacer>>()
   })
 
   it('should match [stringify?: ToString | null | undefined]', () => {

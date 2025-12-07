@@ -3,31 +3,27 @@
 exports[`unit:lib/lines > should return lines info (0) 1`] = `
 {
   "eol": ""\\r\\n"",
-  "indent": "  ",
+  "indent": [Function spacer],
   "lines": [
     "  🦄",
     "  🦾",
     "  🚀",
   ],
-  "padding": [
-    "",
-    "",
-  ],
+  "padLeft": [Function spacer],
+  "padRight": [Function spacer],
 }
 `;
 
 exports[`unit:lib/lines > should return lines info (1) 1`] = `
 {
   "eol": ""\\n"",
-  "indent": "",
+  "indent": [Function spacer],
   "lines": [
     " The quick brown ",
     " fox jumped over ",
     " the lazy dog ",
   ],
-  "padding": [
-    " ",
-    " ",
-  ],
+  "padLeft": [Function spacer],
+  "padRight": [Function spacer],
 }
 `;

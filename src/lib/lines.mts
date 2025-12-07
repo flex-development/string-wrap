@@ -92,6 +92,7 @@ function lines(
     eol: tokenizer.eol,
     indent: tokenizer.indent,
     lines: Object.freeze([...tokenizer.lines]),
-    padding: [tokenizer.padLeft, tokenizer.padRight]
+    padLeft: tokenizer.padLeft,
+    padRight: tokenizer.padRight
   }
 }

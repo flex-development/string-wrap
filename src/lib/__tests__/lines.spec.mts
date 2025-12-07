@@ -10,6 +10,12 @@ import { chars } from '@flex-development/fsm-tokenizer'
 import type { Config } from '@flex-development/string-wrap'
 
 describe('unit:lib/lines', () => {
+  let keys: string[]
+
+  beforeAll(() => {
+    keys = ['eol', 'indent', 'lines', 'padLeft', 'padRight']
+  })
+
   it.each<[thing: unknown, config: Config]>([
     [
       emojiSequences,
@@ -32,7 +38,7 @@ describe('unit:lib/lines', () => {
     const result = testSubject(thing, config)
 
     // Expect
-    expect(result).to.have.keys(['eol', 'indent', 'lines', 'padding'])
+    expect(result).to.have.keys(keys)
     expect(result).to.have.property('lines').be.frozen
 
     // Expect (snapshot)
@@ -40,7 +46,8 @@ describe('unit:lib/lines', () => {
       eol: JSON.stringify(result.eol),
       indent: result.indent,
       lines: result.lines,
-      padding: result.padding
+      padLeft: result.padLeft,
+      padRight: result.padRight
     }).toMatchSnapshot()
   })
 })

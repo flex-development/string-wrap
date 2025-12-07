@@ -4,15 +4,17 @@
  */
 
 import type TestSubject from '#interfaces/lines-info'
-import type { LinePadding } from '@flex-development/string-wrap'
+import type { SpacerFunction } from '@flex-development/string-wrap'
 
 describe('unit-d:interfaces/LinesInfo', () => {
   it('should match [eol: string]', () => {
     expectTypeOf<TestSubject>().toHaveProperty('eol').toEqualTypeOf<string>()
   })
 
-  it('should match [indent: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('indent').toEqualTypeOf<string>()
+  it('should match [indent: SpacerFunction<string>]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('indent')
+      .toEqualTypeOf<SpacerFunction<string>>()
   })
 
   it('should match [lines: readonly string[]]', () => {
@@ -21,9 +23,15 @@ describe('unit-d:interfaces/LinesInfo', () => {
       .toEqualTypeOf<readonly string[]>()
   })
 
-  it('should match [padding: LinePadding]', () => {
+  it('should match [padLeft: SpacerFunction<string>]', () => {
     expectTypeOf<TestSubject>()
-      .toHaveProperty('padding')
-      .toEqualTypeOf<LinePadding>()
+      .toHaveProperty('padLeft')
+      .toEqualTypeOf<SpacerFunction<string>>()
+  })
+
+  it('should match [padRight: SpacerFunction<string>]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('padRight')
+      .toEqualTypeOf<SpacerFunction<string>>()
   })
 })

@@ -3,7 +3,7 @@
  * @module string-wrap/interfaces/LinesInfo
  */
 
-import type { LinePadding } from '@flex-development/string-wrap'
+import type { SpacerFunction } from '@flex-development/string-wrap'
 
 /**
  * Info about the lines of a wrapped string.
@@ -15,9 +15,11 @@ interface LinesInfo {
   eol: string
 
   /**
-   * The string used to indent each line.
+   * Get the string used to indent each line.
+   *
+   * @see {@linkcode SpacerFunction}
    */
-  indent: string
+  indent: SpacerFunction<string>
 
   /**
    * The list of lines forming the wrapped string.
@@ -25,11 +27,18 @@ interface LinesInfo {
   lines: readonly string[]
 
   /**
-   * The strings used to pad either side of each line.
+   * Get the string used to pad the left side of each line.
    *
-   * @see {@linkcode LinePadding}
+   * @see {@linkcode SpacerFunction}
    */
-  padding: LinePadding
+  padLeft: SpacerFunction<string>
+
+  /**
+   * Get the string used to pad the right side of each line.
+   *
+   * @see {@linkcode SpacerFunction}
+   */
+  padRight: SpacerFunction<string>
 }
 
 export type { LinesInfo as default }

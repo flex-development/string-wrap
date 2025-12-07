@@ -29,7 +29,6 @@ import quickBrownFox from '#fixtures/quick-brown-fox'
 import spaces from '#fixtures/spaces'
 import tagline from '#fixtures/tagline'
 import gs from '#internal/gs'
-import margin from '#internal/margin'
 import testSubject from '#internal/tokenize'
 import hrc from '#tests/utils/hrc'
 import colors from '@flex-development/colors'
@@ -41,11 +40,13 @@ import {
 } from '@flex-development/fsm-tokenizer'
 import type {
   Options,
+  SpacerFunction,
   StripAnsi,
   ToString
 } from '@flex-development/string-wrap'
 import stripAnsi from '@flex-development/strip-ansi'
 import {
+  constant,
   ksort,
   pick,
   shake,
@@ -201,11 +202,11 @@ describe('functional:internal/tokenize', () => {
       expect(result).to.have.property('events').be.an('array')
       expect(result).to.have.property('fill', undefined)
       expect(result).to.have.property('hard', undefined)
-      expect(result).to.have.property('indent', chars.empty)
+      expect(result).to.have.property('indent').be.a('function')
       expect(result).to.have.property('line', chars.empty)
       expect(result).to.have.property('lines').be.an('array')
-      expect(result).to.have.property('padLeft', chars.empty)
-      expect(result).to.have.property('padRight', chars.empty)
+      expect(result).to.have.property('padLeft').be.a('function')
+      expect(result).to.have.property('padRight').be.a('function')
       expect(result).to.have.property('string').be.a('string')
       expect(result).to.have.property('stringify', String)
       expect(result).to.have.property('stripAnsi', stripAnsi)
@@ -404,9 +405,10 @@ describe('functional:internal/tokenize', () => {
     it.each<[
       thing: string,
       columns: number | string,
-      indent: number | string
+      indent: SpacerFunction | number | string
     ]>([
       [quickBrownFox, 20, chars.digit2],
+      [ansiFixture01, 30, index => index * 2],
       [helloWorld, chars.digit7, chars.space]
     ])('should indent each line (%#)', (thing, columns, indent) => {
       // Act
@@ -414,7 +416,7 @@ describe('functional:internal/tokenize', () => {
 
       // Expect
       expect(result).to.have.keys(keys)
-      expect(result).to.have.property('indent', margin(indent))
+      expect(result).to.have.property('indent').be.a('function')
       expect(result.lines).to.each.satisfyColumns(result.columns)
       expect(snapshot(result, ['indent'])).toMatchSnapshot()
     })
@@ -424,12 +426,33 @@ describe('functional:internal/tokenize', () => {
     it.each<[
       thing: string,
       columns: number | string,
-      padLeft: number | string | null | undefined,
-      padRight: number | string | null | undefined
+      padLeft: SpacerFunction | number | string | null | undefined,
+      padRight: SpacerFunction | number | string | null | undefined
     ]>([
-      [emojiSequences, chars.digit3, chars.space.repeat(2), null],
-      [digitSequences, chars.digit5, undefined, chars.space.repeat(4)],
-      [quickBrownFox, 20, chars.digit1, chars.digit1]
+      [
+        emojiSequences,
+        chars.digit3,
+        chars.space.repeat(2),
+        null
+      ],
+      [
+        digitSequences,
+        chars.digit5,
+        undefined,
+        chars.space.repeat(4)
+      ],
+      [
+        digitSequences.trimEnd(),
+        13,
+        constant(chars.space.repeat(5) + chars.bar),
+        constant(chars.bar + chars.space.repeat(5))
+      ],
+      [
+        quickBrownFox,
+        20,
+        chars.digit1,
+        chars.digit1
+      ]
     ])('should add padding to each line (%#)', (
       thing,
       columns,
@@ -441,8 +464,8 @@ describe('functional:internal/tokenize', () => {
 
       // Expect
       expect(result).to.have.keys(keys)
-      expect(result).to.have.property('padLeft', margin(padLeft))
-      expect(result).to.have.property('padRight', margin(padRight))
+      expect(result).to.have.property('padLeft').be.a('function')
+      expect(result).to.have.property('padRight').be.a('function')
       expect(result.lines).to.each.satisfyColumns(result.columns)
       expect(snapshot(result, ['padLeft', 'padRight'])).toMatchSnapshot()
     })

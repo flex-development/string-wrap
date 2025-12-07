@@ -26,9 +26,10 @@ Wrap a string
   - [`wrap(thing, config[, options])`](#wrapthing-config-options)
 - [Types](#types)
   - [`Config`](#config)
-  - [`LinePadding`](#linepadding)
   - [`LinesInfo`](#linesinfo)
   - [`Options`](#options)
+  - [`SpacerFunction<[T]>`](#spacerfunctiont)
+  - [`Spacer`](#spacer)
   - [`StripAnsi`](#stripansi)
   - [`ToString<[T]>`](#tostringt)
 - [Contribute](#contribute)
@@ -187,14 +188,6 @@ String wrapping configuration (`interface`).
 - `columns` (`number` | `string`)
   — the number of columns to wrap the string to
 
-### `LinePadding`
-
-The strings used to pad either side of each line (`type`).
-
-```ts
-type LinePadding = [left: string, right: string]
-```
-
 ### `LinesInfo`
 
 Info about the lines of a wrapped string (`interface`).
@@ -203,12 +196,14 @@ Info about the lines of a wrapped string (`interface`).
 
 - `eol` (`string`)
   — the character, or characters, used to mark the end of a line
-- `indent` (`string`)
-  — the string used to indent each line
+- `indent` ([`SpacerFunction<string>`](#spacerfunctiont))
+  — get the string used to indent each line
 - `lines` (`readonly string[]`)
   — the list of lines forming the wrapped string
-- `padding` ([`LinePadding`](#linepadding))
-  — the strings used to pad either side of each line
+- `padLeft` ([`SpacerFunction<string>`](#spacerfunctiont))
+  — get the string used to pad the left side of each line
+- `padRight` ([`SpacerFunction<string>`](#spacerfunctiont))
+  — get the string used to pad the right side of each line
 
 ### `Options`
 
@@ -229,11 +224,11 @@ Options for wrapping a string (`interface`).
   by default, long words remain unbroken and push onto the next line if they don't fit on the current line.\
   setting this to `true` will break long words.
   > 👉 **note**: setting this to `true` will break words.
-- `indent?` (`number` | `string` | `null` | `undefined`, optional)
+- `indent?` ([`SpacerFunction`](#spacerfunctiont) | `number` | `string` | `null` | `undefined`, optional)
   — the size of the string to use for indenting each line (as a number or numeric), or the string itself
-- `padLeft?` (`number` | `string` | `null` | `undefined`, optional)
+- `padLeft?` ([`SpacerFunction`](#spacerfunctiont) | `number` | `string` | `null` | `undefined`, optional)
   — the size of the string to use for padding the left side of each line (as a number or numeric), or the string itself
-- `padRight?` (`number` | `string` | `null` | `undefined`, optional)
+- `padRight?` ([`SpacerFunction`](#spacerfunctiont) | `number` | `string` | `null` | `undefined`, optional)
   — the size of the string to use for padding the right side of each line (as a number or numeric), or the string itself
 - `stringify?` ([`ToString`](#tostringt) | `null` | `undefined`, optional)
   — convert a value to a string
@@ -246,6 +241,54 @@ Options for wrapping a string (`interface`).
   — whether to remove whitespace from the end of each line
   > 👉 **note**: lines are trimmed before applying indents or padding.
   - default: `true`
+
+### `SpacerFunction<[T]>`
+
+Get a spacer configuration for the line at `index` (`type`).
+
+Spacers can be used to indent a line, and/or pad either side of it.
+
+```ts
+type SpacerFunction<
+  T extends number | string | null | undefined =
+    | number
+    | string
+    | null
+    | undefined
+> = (
+  this: void,
+  index: number,
+  lines?: readonly string[] | null | undefined
+) => T
+```
+
+#### Type Parameters
+
+- `T` (`number` | `string` | `null` | `undefined`, optional)
+  — the spacer configuration
+
+#### Parameters
+
+- `index` (`number`)
+  — the index of the current line
+- `lines` (`readonly string[]` | `null` | `undefined`, optional)
+  — the current list of lines
+
+#### Returns
+
+(`T`) The spacer configuration
+
+### `Spacer`
+
+Union of spacer configurations (`type`).
+
+Spacers can be used to indent a line, and/or pad either side of it.
+
+Valid spacer configurations are functions, sizes (as a number or numeric), or the spacer itself.
+
+```ts
+type Spacer = SpacerFunction | number | string
+```
 
 ### `StripAnsi`
 
