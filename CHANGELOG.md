@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/flex-development/string-wrap/compare/1.0.1...2.0.0) (2025-12-06)
+
+### ⚠ BREAKING CHANGES
+
+- spacer functions
+
+### :sparkles: Features
+
+- [[`d2f80a5`](https://github.com/flex-development/string-wrap/commit/d2f80a5aa97b38e077596ab332d456b7a4ff06ae)] spacer functions
+
 ## [1.0.1](https://github.com/flex-development/string-wrap/compare/1.0.0...1.0.1) (2025-12-05)
 
 ### :package: Build
@@ -44,6 +54,7 @@
 ### :mechanical_arm: Refactors
 
 - [[`570f7c9`](https://github.com/flex-development/string-wrap/commit/570f7c96bbfd41df6a4a0d615c511fc92a3b4b00)] **internal:** [`takeVisible`] add ansi support
+
 
 
 
