@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:internal/number > should return parsed number ("13") 1`] = `13`;
+
+exports[`unit:internal/number > should return parsed number ("EPSILON") 1`] = `2.220446049250313e-16`;
+
+exports[`unit:internal/number > should return parsed number ("NEGATIVE_INFINITY") 1`] = `-Infinity`;
+
+exports[`unit:internal/number > should return parsed number ("NaN") 1`] = `NaN`;
+
+exports[`unit:internal/number > should return parsed number ("false") 1`] = `NaN`;
+
+exports[`unit:internal/number > should return parsed number ("parseInt") 1`] = `NaN`;
+
+exports[`unit:internal/number > should return parsed number (3) 1`] = `3`;

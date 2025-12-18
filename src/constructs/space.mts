@@ -53,7 +53,7 @@ function resolveSpace(this: void, events: Event[]): Event[] {
   // start a new line if a space cannot fit,
   // or add the space to the current line if the line already has content.
   // if the line has no content, but should not be trimmed, also add the space.
-  if (width(self.line) + token.value.length > self.cols) {
+  if (width(self.line) + token.value.length > self.ac) {
     self.flush()
     if (!self.trim) self.line += token.value
   } else if (width(self.line) || !self.trim) {

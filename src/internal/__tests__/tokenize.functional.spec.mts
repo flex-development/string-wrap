@@ -39,6 +39,7 @@ import {
   type TokenizeContext
 } from '@flex-development/fsm-tokenizer'
 import type {
+  ColumnsFunction,
   Options,
   SpacerFunction,
   StripAnsi,
@@ -65,8 +66,8 @@ describe('functional:internal/tokenize', () => {
 
   beforeAll(() => {
     keys = [
+      'ac',
       'code',
-      'cols',
       'columns',
       'currentConstruct',
       'defineSkip',
@@ -165,7 +166,7 @@ describe('functional:internal/tokenize', () => {
       keys?: string[] | undefined
     ): JsonObject {
       keys ??= []
-      keys.push('cols', 'columns', 'lines', 'string')
+      keys.push('lines', 'string')
 
       /**
        * The snapshot object.
@@ -184,7 +185,7 @@ describe('functional:internal/tokenize', () => {
   })
 
   describe('core', () => {
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [chars.empty, chars.digit1],
       [chars.space.repeat(+chars.digit2), chars.digit2],
       [digitSequences, chars.digit1],
@@ -197,8 +198,8 @@ describe('functional:internal/tokenize', () => {
 
       // Expect
       expect(result).to.have.keys(keys)
-      expect(result).to.have.property('cols').be.a('number')
-      expect(result).to.have.property('columns', +columns)
+      expect(result).to.have.property('ac').be.a('number')
+      expect(result).to.have.property('columns').be.a('function')
       expect(result).to.have.property('events').be.an('array')
       expect(result).to.have.property('fill', undefined)
       expect(result).to.have.property('hard', undefined)
@@ -211,7 +212,7 @@ describe('functional:internal/tokenize', () => {
       expect(result).to.have.property('stringify', String)
       expect(result).to.have.property('stripAnsi', stripAnsi)
       expect(result).to.have.property('trim', true)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result, ['events'])).toMatchSnapshot()
     })
 
@@ -221,11 +222,11 @@ describe('functional:internal/tokenize', () => {
 
       // Expect
       expect(result).to.have.keys(keys)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
-    it.each<[thing: JsonValue, columns: number | string]>([
+    it.each<[thing: JsonValue, columns: ColumnsFunction | number | string]>([
       [quickBrownFox, chars.digit5],
       [ansiFixture01, chars.digit5],
       [ansiFixture03, chars.digit5],
@@ -249,7 +250,7 @@ describe('functional:internal/tokenize', () => {
       expect(snapshot(result)).toMatchSnapshot()
     })
 
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [emojiSequences, chars.digit1],
       [tagline, gs.countGraphemes(tagline)]
     ])('should support emojis (%#)', (thing, columns) => {
@@ -258,7 +259,37 @@ describe('functional:internal/tokenize', () => {
 
       // Expect
       expect(result).to.have.keys(keys)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
+      expect(snapshot(result)).toMatchSnapshot()
+    })
+  })
+
+  describe('options.columns', () => {
+    let columns: ColumnsFunction
+
+    beforeAll(() => {
+      /**
+       * Get the maximum number of columns for the line at `index`.
+       *
+       * @this {void}
+       *
+       * @param {number} index
+       *  The index of the current line, or `-1` on init
+       * @return {number}
+       *  The maximum number of columns
+       */
+      columns = function columns(this: void, index: number): number {
+        return Math.max(index, 0) + 3
+      }
+    })
+
+    it('should build dynamically wrapped string', () => {
+      // Act
+      const result = testSubject(digitSequences, { columns })
+
+      // Expect
+      expect(result).to.have.keys(keys)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
   })
@@ -270,7 +301,7 @@ describe('functional:internal/tokenize', () => {
       fill = true
     })
 
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [digitSequence, chars.digit5],
       [digitsSequences3, chars.digit5],
       [digitsSequences3, 15],
@@ -285,11 +316,11 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('fill').be.true
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [digitSequence, chars.digit5],
       [digitsSequences3, chars.digit5],
       [digitsSequences3, 13],
@@ -304,7 +335,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('fill').be.true
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
   })
@@ -316,7 +347,7 @@ describe('functional:internal/tokenize', () => {
       hard = true
     })
 
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [ansiFixture01, chars.digit5],
       [digitSequences2, 10],
       [stripAnsi(ansiFixture09), 16],
@@ -333,11 +364,11 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('hard', hard)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [spaces, chars.digit2],
       [fooBar2, chars.digit3],
       [digitSequence2, chars.digit5],
@@ -349,7 +380,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('hard', hard)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
@@ -360,7 +391,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('hard', hard)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
@@ -374,7 +405,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('hard', hard)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
@@ -385,7 +416,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('hard', hard)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
@@ -396,7 +427,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('hard', hard)
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
   })
@@ -408,7 +439,7 @@ describe('functional:internal/tokenize', () => {
       indent: SpacerFunction | number | string
     ]>([
       [quickBrownFox, 20, chars.digit2],
-      [ansiFixture01, 30, index => index * 2],
+      [ansiFixture01, 30, index => Math.max(index, 0) * 2],
       [helloWorld, chars.digit7, chars.space]
     ])('should indent each line (%#)', (thing, columns, indent) => {
       // Act
@@ -417,8 +448,27 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('indent').be.a('function')
-      expect(result.lines).to.each.satisfyColumns(result.columns)
-      expect(snapshot(result, ['indent'])).toMatchSnapshot()
+      expect(result.lines).to.satisfyColumns(result.columns)
+      expect(snapshot(result)).toMatchSnapshot()
+    })
+
+    it('should work with dynamic columns', () => {
+      // Arrange
+      const itemWidth: number = 41
+      const max: number = 100
+
+      // Act
+      const result = testSubject('whether to respect\nunstable tags', {
+        columns: index => index <= 0 ? max - itemWidth : max,
+        indent: index => index <= 0 ? chars.digit0 : itemWidth
+      })
+
+      // Expect
+      expect(result).to.have.keys(keys)
+      expect(result).to.have.property('columns').be.a('function')
+      expect(result).to.have.property('indent').be.a('function')
+      expect(result.lines).to.satisfyColumns(result.columns)
+      expect(snapshot(result)).toMatchSnapshot()
     })
   })
 
@@ -466,8 +516,28 @@ describe('functional:internal/tokenize', () => {
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('padLeft').be.a('function')
       expect(result).to.have.property('padRight').be.a('function')
-      expect(result.lines).to.each.satisfyColumns(result.columns)
-      expect(snapshot(result, ['padLeft', 'padRight'])).toMatchSnapshot()
+      expect(result.lines).to.satisfyColumns(result.columns)
+      expect(snapshot(result)).toMatchSnapshot()
+    })
+
+    it('should work with dynamic columns', () => {
+      // Arrange
+      const itemWidth: number = 41
+      const max: number = 80
+
+      // Act
+      const result = testSubject('whether color output\nis enabled', {
+        columns: index => index <= 0 ? max - itemWidth : max,
+        padLeft: index => index <= 0 ? chars.digit0 : itemWidth
+      })
+
+      // Expect
+      expect(result).to.have.keys(keys)
+      expect(result).to.have.property('columns').be.a('function')
+      expect(result).to.have.property('padLeft').be.a('function')
+      expect(result).to.have.property('padRight').be.a('function')
+      expect(result.lines).to.satisfyColumns(result.columns)
+      expect(snapshot(result)).toMatchSnapshot()
     })
   })
 
@@ -499,7 +569,7 @@ describe('functional:internal/tokenize', () => {
   describe('options.stripAnsi', () => {
     it.each<[
       thing: string,
-      columns: number | string,
+      columns: ColumnsFunction | number | string,
       stripAnsi: StripAnsi | true
     ]>([
       [ansiFixture01, 20, true],
@@ -515,13 +585,13 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('string', result.stripAnsi(thing))
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
   })
 
   describe('options.trim', () => {
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [spaces, chars.digit2],
       [digitSequences, chars.digit1],
       [fooBar, 42],
@@ -540,11 +610,11 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('trim').be.false
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
 
-    it.each<[thing: string, columns: number | string]>([
+    it.each<[thing: string, columns: ColumnsFunction | number | string]>([
       [fooBar, chars.digit3],
       [fooBar, chars.digit6],
       [fooBar, 42],
@@ -560,7 +630,7 @@ describe('functional:internal/tokenize', () => {
       // Expect
       expect(result).to.have.keys(keys)
       expect(result).to.have.property('trim').be.true
-      expect(result.lines).to.each.satisfyColumns(result.columns)
+      expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
     })
   })

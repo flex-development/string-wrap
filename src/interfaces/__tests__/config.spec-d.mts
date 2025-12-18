@@ -4,16 +4,16 @@
  */
 
 import type TestSubject from '#interfaces/config'
-import type { Options } from '@flex-development/string-wrap'
+import type { Columns, Options } from '@flex-development/string-wrap'
 
 describe('unit-d:interfaces/Config', () => {
   it('should extend Options', () => {
     expectTypeOf<TestSubject>().toExtend<Options>()
   })
 
-  it('should match [columns: number | string]', () => {
+  it('should match [columns: Columns]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('columns')
-      .toEqualTypeOf<number | string>()
+      .toEqualTypeOf<Columns>()
   })
 })

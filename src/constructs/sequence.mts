@@ -62,7 +62,7 @@ function resolveSequence(this: void, events: Event[]): Event[] {
 
   // fill columns completely,
   // or break long sequences that don't fit on the current line.
-  if (self.fill || (seq > self.cols && self.hard)) {
+  if (self.fill || (seq > self.ac && self.hard)) {
     /**
      * The current sequence.
      *
@@ -78,7 +78,7 @@ function resolveSequence(this: void, events: Event[]): Event[] {
        *
        * @const {number} space
        */
-      const space: number = self.cols - width(self.line)
+      const space: number = self.ac - width(self.line)
 
       /**
        * The longest prefix of {@linkcode sequence} that fits into the
@@ -97,7 +97,7 @@ function resolveSequence(this: void, events: Event[]): Event[] {
       if (take) sequence = sequence.slice(take.length)
 
       // start new line if there is no more space.
-      if (width(self.line) === self.cols) self.flush()
+      if (width(self.line) === self.ac) self.flush()
     }
   } else {
     /**
@@ -108,7 +108,7 @@ function resolveSequence(this: void, events: Event[]): Event[] {
     const columns: number = width(self.line)
 
     // start new line if sequence cannot fit.
-    if (columns && columns + seq > self.cols) self.flush()
+    if (columns && columns + seq > self.ac) self.flush()
 
     // sequence fits on line normally, or soft wrap is enabled
     // and long words may extend past the configured column width.

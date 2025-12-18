@@ -1,12 +1,12 @@
 /**
- * @file Unit Tests - pad
- * @module string-wrap/internal/tests/unit/pad
+ * @file Unit Tests - margin
+ * @module string-wrap/internal/tests/unit/margin
  */
 
 import testSubject from '#internal/margin'
 import { chars } from '@flex-development/fsm-tokenizer'
 
-describe('unit:internal/pad', () => {
+describe('unit:internal/margin', () => {
   it.each<Parameters<typeof testSubject>>([
     [null],
     [+chars.digit0],

@@ -5,13 +5,19 @@
 
 import tokenize from '#internal/tokenize'
 import type { TokenizeContext } from '@flex-development/fsm-tokenizer'
-import type { Config, LinesInfo, Options } from '@flex-development/string-wrap'
+import type {
+  Columns,
+  Config,
+  LinesInfo,
+  Options
+} from '@flex-development/string-wrap'
 
 export default lines
 
 /**
  * Get info about the lines of a wrapped string.
  *
+ * @see {@linkcode Columns}
  * @see {@linkcode LinesInfo}
  * @see {@linkcode Options}
  *
@@ -20,8 +26,9 @@ export default lines
  * @param {unknown} thing
  *  The thing to wrap.
  *  Non-string values will be converted to strings
- * @param {number | string} columns
- *  The number of columns to wrap the string to
+ * @param {Columns} columns
+ *  The number of columns to wrap the string to,
+ *  or a function that returns the maximum number of columns per line
  * @param {Options | null | undefined} [options]
  *  Options for wrapping
  * @return {LinesInfo}
@@ -30,13 +37,14 @@ export default lines
 function lines(
   this: void,
   thing: unknown,
-  columns: number | string,
+  columns: Columns,
   options?: Options | null | undefined
 ): LinesInfo
 
 /**
  * Get info about the lines of a wrapped string.
  *
+ * @see {@linkcode Columns}
  * @see {@linkcode Config}
  * @see {@linkcode LinesInfo}
  *
@@ -45,20 +53,18 @@ function lines(
  * @param {unknown} thing
  *  The thing to wrap.
  *  Non-string values will be converted to strings
- * @param {Config | number | string} config
- *  The wrap configuration or the number of columns to wrap the string to
+ * @param {Columns | Config} config
+ *  The wrap configuration, the number of columns to wrap the string to,
+ *  or a function that returns the maximum number of columns per line
  * @return {LinesInfo}
  *  Info about the lines forming the wrapped string
  */
-function lines(
-  this: void,
-  thing: unknown,
-  config: Config | number | string
-): LinesInfo
+function lines(this: void, thing: unknown, config: Columns | Config): LinesInfo
 
 /**
  * Get info about the lines of a wrapped string.
  *
+ * @see {@linkcode Columns}
  * @see {@linkcode Config}
  * @see {@linkcode LinesInfo}
  * @see {@linkcode Options}
@@ -68,8 +74,9 @@ function lines(
  * @param {unknown} thing
  *  The thing to wrap.
  *  Non-string values will be converted to strings
- * @param {Config | number | string} config
- *  The wrap configuration or the number of columns to wrap the string to
+ * @param {Columns | Config} config
+ *  The wrap configuration, the number of columns to wrap the string to,
+ *  or a function that returns the maximum number of columns per line
  * @param {Options | null | undefined} [options]
  *  Options for wrapping
  * @return {LinesInfo}
@@ -78,7 +85,7 @@ function lines(
 function lines(
   this: void,
   thing: unknown,
-  config: Config | number | string,
+  config: Columns | Config,
   options?: Options | null | undefined
 ): LinesInfo {
   /**
@@ -89,6 +96,7 @@ function lines(
   const tokenizer: TokenizeContext = tokenize(thing, config as never, options)
 
   return {
+    columns: tokenizer.columns,
     eol: tokenizer.eol,
     indent: tokenizer.indent,
     lines: Object.freeze([...tokenizer.lines]),

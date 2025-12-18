@@ -1,3 +1,5 @@
+import type { ColumnsFunction } from '@flex-development/string-wrap'
+
 declare global {
   namespace Chai {
     interface Assertion {
@@ -41,12 +43,12 @@ declare global {
        * Check if a line without ANSI escape codes has
        * no more graphemes than the specified number of columns.
        *
-       * @param {number | string} columns
-       *  The maximum (inclusive) number of columns
+       * @param {ColumnsFunction<number>} columns
+       *  A function that returns the maximum number of columns per line
        * @return {Assertion}
        *  An assertion instance
        */
-      satisfyColumns(columns: number | string): Assertion
+      satisfyColumns(columns: ColumnsFunction<number>): Assertion
     }
   }
 }

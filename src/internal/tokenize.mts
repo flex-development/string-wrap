@@ -9,6 +9,7 @@ import sequence from '#constructs/sequence'
 import space from '#constructs/space'
 import gs from '#internal/gs'
 import margin from '#internal/margin'
+import number from '#internal/number'
 import { ansiRegex } from '@flex-development/ansi-regex'
 import {
   chars,
@@ -18,6 +19,8 @@ import {
   type TokenizeContext
 } from '@flex-development/fsm-tokenizer'
 import type {
+  Columns,
+  ColumnsFunction,
   Config,
   Options,
   SpacerFunction
@@ -30,6 +33,7 @@ export default tokenize
 /**
  * Tokenize a string.
  *
+ * @see {@linkcode Columns}
  * @see {@linkcode Options}
  * @see {@linkcode TokenizeContext}
  *
@@ -40,8 +44,9 @@ export default tokenize
  * @param {unknown} thing
  *  The thing to tokenize.
  *  Non-string values will be converted to strings
- * @param {number | string} columns
- *  The number of columns to wrap the string to
+ * @param {Columns} columns
+ *  The number of columns to wrap the string to,
+ *  or a function that returns the maximum number of columns per line
  * @param {Options | null | undefined} [options]
  *  Options for wrapping
  * @return {TokenizeContext}
@@ -50,13 +55,14 @@ export default tokenize
 function tokenize(
   this: void,
   thing: unknown,
-  columns: number | string,
+  columns: Columns,
   options?: Options | null | undefined
 ): TokenizeContext
 
 /**
  * Tokenize a string.
  *
+ * @see {@linkcode Columns}
  * @see {@linkcode Config}
  * @see {@linkcode TokenizeContext}
  *
@@ -67,20 +73,22 @@ function tokenize(
  * @param {unknown} thing
  *  The thing to tokenize.
  *  Non-string values will be converted to strings
- * @param {Config | number | string} config
- *  The wrap configuration or the number of columns to wrap the string to
+ * @param {Columns | Config} config
+ *  The wrap configuration, the number of columns to wrap the string to,
+ *  or a function that returns the maximum number of columns per line
  * @return {TokenizeContext}
  *  The tokenization context
  */
 function tokenize(
   this: void,
   thing: unknown,
-  config: Config | number | string
+  config: Columns | Config
 ): TokenizeContext
 
 /**
  * Tokenize a string.
  *
+ * @see {@linkcode Columns}
  * @see {@linkcode Config}
  * @see {@linkcode Options}
  * @see {@linkcode TokenizeContext}
@@ -92,8 +100,9 @@ function tokenize(
  * @param {unknown} thing
  *  The thing to tokenize.
  *  Non-string values will be converted to strings
- * @param {Config | number | string} config
- *  The wrap configuration or the number of columns to wrap the string to
+ * @param {Columns | Config} config
+ *  The wrap configuration, the number of columns to wrap the string to,
+ *  or a function that returns the maximum number of columns per line
  * @param {Options | null | undefined} [options]
  *  Options for wrapping
  * @return {TokenizeContext}
@@ -102,7 +111,7 @@ function tokenize(
 function tokenize(
   this: void,
   thing: unknown,
-  config: Config | number | string,
+  config: Columns | Config,
   options?: Options | null | undefined
 ): TokenizeContext {
   if (typeof config !== 'object') {
@@ -128,9 +137,7 @@ function tokenize(
     tabSize: config.tabSize ?? +chars.digit2
   })
 
-  // write chunks.
   void chunks(context.trim ? trimEnd(context.string) : context.string, / /g)
-
   return context
 
   /**
@@ -177,6 +184,54 @@ function tokenize(
   }
 
   /**
+   * Create a columns function.
+   *
+   * @this {void}
+   *
+   * @param {ColumnsFunction | number | string} init
+   *  The number of columns to wrap the string to,
+   *  or a function that returns the maximum number of columns per line
+   * @return {ColumnsFunction<number>}
+   *  Columns function
+   */
+  function cols(
+    this: void,
+    init: ColumnsFunction | number | string
+  ): ColumnsFunction<number> {
+    if (typeof init === 'function') {
+      /**
+       * @this {void}
+       *
+       * @param {number} index
+       *  The index of the current line
+       * @param {ReadonlyArray<string> | null | undefined} [lines]
+       *  The current list of lines
+       * @return {number}
+       *  The number of columns to wrap the string to
+       */
+      return function columns(
+        this: void,
+        index: number,
+        lines?: readonly string[] | null | undefined
+      ): number {
+        ok(typeof init === 'function', 'expected available `init` function')
+        return number(init(index, lines))
+      }
+    }
+
+    /**
+     * @this {void}
+     *
+     * @return {number}
+     *  The number of columns to wrap the string to
+     */
+    return function columns(this: void): number {
+      ok(typeof init !== 'function', 'expected no columns `init` function')
+      return number(init)
+    }
+  }
+
+  /**
    * Finalize the tokenization context.
    *
    * @this {void}
@@ -188,7 +243,9 @@ function tokenize(
   function finalizeContext(this: void, self: TokenizeContext): undefined {
     ok(typeof config === 'object', 'expected wrap config object')
 
-    self.cols = self.columns = +config.columns
+    self.columns = cols(config.columns)
+
+    self.ac = self.columns(-1)
     self.eol = config.eol?.replaceAll(/[\t ]/g, chars.empty) || chars.lf
     self.fill = config.fill
     self.flush = flush.bind(self)
@@ -202,9 +259,9 @@ function tokenize(
     self.trim = config.trim ?? true
 
     // get available columns.
-    self.cols -= gs.countGraphemes(self.indent(0))
-    self.cols -= gs.countGraphemes(self.padLeft(0) + self.padRight(0))
-    self.cols = Math.max(0, self.cols)
+    self.ac -= gs.countGraphemes(self.indent(-1))
+    self.ac -= gs.countGraphemes(self.padLeft(-1) + self.padRight(-1))
+    self.ac = Math.max(0, self.ac)
 
     // get ansi escape code remover.
     self.stripAnsi = typeof config.stripAnsi === 'function'
@@ -241,11 +298,11 @@ function tokenize(
     this.lines.push(this.line)
 
     // re-calculate available columns for the next line.
-    this.cols = this.columns
-    this.cols -= gs.countGraphemes(this.indent(this.lines.length, this.lines))
-    this.cols -= gs.countGraphemes(this.padLeft(this.lines.length, this.lines))
-    this.cols -= gs.countGraphemes(this.padRight(this.lines.length, this.lines))
-    this.cols = Math.max(0, this.cols)
+    this.ac = this.columns(this.lines.length, this.lines)
+    this.ac -= gs.countGraphemes(this.indent(this.lines.length, this.lines))
+    this.ac -= gs.countGraphemes(this.padLeft(this.lines.length, this.lines))
+    this.ac -= gs.countGraphemes(this.padRight(this.lines.length, this.lines))
+    this.ac = Math.max(0, this.ac)
 
     return this.line = chars.empty, void 0
   }

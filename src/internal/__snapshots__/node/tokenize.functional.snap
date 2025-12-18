@@ -3,8 +3,6 @@
 exports[`functional:internal/tokenize > core > should build wrapped string (0) 1`] = `
 {
   "candidate": """",
-  "cols": 1,
-  "columns": 1,
   "events": [
     [
       "enter",
@@ -54,8 +52,6 @@ exports[`functional:internal/tokenize > core > should build wrapped string (0) 1
 exports[`functional:internal/tokenize > core > should build wrapped string (1) 1`] = `
 {
   "candidate": ""  "",
-  "cols": 2,
-  "columns": 2,
   "events": [
     [
       "enter",
@@ -105,8 +101,6 @@ exports[`functional:internal/tokenize > core > should build wrapped string (1) 1
 exports[`functional:internal/tokenize > core > should build wrapped string (2) 1`] = `
 {
   "candidate": ""0 1 2 3 4 5 6 7 8 9\\n"",
-  "cols": 1,
-  "columns": 1,
   "events": [
     [
       "enter",
@@ -1010,8 +1004,6 @@ exports[`functional:internal/tokenize > core > should build wrapped string (2) 1
 exports[`functional:internal/tokenize > core > should build wrapped string (3) 1`] = `
 {
   "candidate": ""12345678\\r\\n901234567890 12345"",
-  "cols": 15,
-  "columns": 15,
   "events": [
     [
       "enter",
@@ -1277,8 +1269,6 @@ exports[`functional:internal/tokenize > core > should build wrapped string (3) 1
 exports[`functional:internal/tokenize > core > should build wrapped string (4) 1`] = `
 {
   "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
-  "cols": 20,
-  "columns": 20,
   "events": [
     [
       "enter",
@@ -2636,8 +2626,6 @@ exports[`functional:internal/tokenize > core > should build wrapped string (4) 1
 exports[`functional:internal/tokenize > core > should build wrapped string (5) 1`] = `
 {
   "candidate": ""Hello, \\u001b[1D World!"",
-  "cols": 8,
-  "columns": 8,
   "events": [
     [
       "enter",
@@ -2900,8 +2888,6 @@ exports[`functional:internal/tokenize > core > should build wrapped string (5) 1
 exports[`functional:internal/tokenize > core > should handle ansi that wraps onto multiple lines 1`] = `
 {
   "candidate": ""\\u001b[32mhello world\\u001b[39m hey!"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "\\u001b[32mhello",
     "world\\u001b[39m",
@@ -2913,8 +2899,6 @@ exports[`functional:internal/tokenize > core > should handle ansi that wraps ont
 exports[`functional:internal/tokenize > core > should not break sequences longer than \`columns\` (0) 1`] = `
 {
   "candidate": ""The quick brown fox jumped over the lazy dog"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "The",
     "quick",
@@ -2932,8 +2916,6 @@ exports[`functional:internal/tokenize > core > should not break sequences longer
 exports[`functional:internal/tokenize > core > should not break sequences longer than \`columns\` (1) 1`] = `
 {
   "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "The",
     "\\u001b[1mquick\\u001b[22m",
@@ -2958,8 +2940,6 @@ exports[`functional:internal/tokenize > core > should not break sequences longer
 exports[`functional:internal/tokenize > core > should not break sequences longer than \`columns\` (2) 1`] = `
 {
   "candidate": ""\\u001b[34mhello\\u001b[39m-world"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "\\u001b[34mhello\\u001b[39m-world",
   ],
@@ -2969,8 +2949,6 @@ exports[`functional:internal/tokenize > core > should not break sequences longer
 exports[`functional:internal/tokenize > core > should not break sequences longer than \`columns\` (3) 1`] = `
 {
   "candidate": ""\\u001b[33mhello\\u001b[39mworld"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "\\u001b[33mhello\\u001b[39mworld",
   ],
@@ -2980,8 +2958,6 @@ exports[`functional:internal/tokenize > core > should not break sequences longer
 exports[`functional:internal/tokenize > core > should support emojis (0) 1`] = `
 {
   "candidate": ""🦄 🦾 🚀"",
-  "cols": 1,
-  "columns": 1,
   "lines": [
     "🦄",
     "🦾",
@@ -2993,8 +2969,6 @@ exports[`functional:internal/tokenize > core > should support emojis (0) 1`] = `
 exports[`functional:internal/tokenize > core > should support emojis (1) 1`] = `
 {
   "candidate": ""Doing the heavy lifting so you don't have to 😉🦾"",
-  "cols": 47,
-  "columns": 47,
   "lines": [
     "Doing the heavy lifting so you don't have to",
     "😉🦾",
@@ -3002,11 +2976,22 @@ exports[`functional:internal/tokenize > core > should support emojis (1) 1`] = `
 }
 `;
 
+exports[`functional:internal/tokenize > options.columns > should build dynamically wrapped string 1`] = `
+{
+  "candidate": ""0 1 2 3 4 5 6 7 8 9\\n"",
+  "lines": [
+    "0 1",
+    "2 3",
+    "4 5 6",
+    "7 8 9",
+    "",
+  ],
+}
+`;
+
 exports[`functional:internal/tokenize > options.fill > should fill columns and break sequences longer than \`columns\` (0) 1`] = `
 {
   "candidate": ""0123456789\\n"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "01234",
     "56789",
@@ -3018,8 +3003,6 @@ exports[`functional:internal/tokenize > options.fill > should fill columns and b
 exports[`functional:internal/tokenize > options.fill > should fill columns and break sequences longer than \`columns\` (1) 1`] = `
 {
   "candidate": ""12345678\\r\\n901234567890 12345"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "12345",
     "678",
@@ -3034,8 +3017,6 @@ exports[`functional:internal/tokenize > options.fill > should fill columns and b
 exports[`functional:internal/tokenize > options.fill > should fill columns and break sequences longer than \`columns\` (2) 1`] = `
 {
   "candidate": ""12345678\\r\\n901234567890 12345"",
-  "cols": 15,
-  "columns": 15,
   "lines": [
     "12345678",
     "901234567890 12",
@@ -3047,8 +3028,6 @@ exports[`functional:internal/tokenize > options.fill > should fill columns and b
 exports[`functional:internal/tokenize > options.fill > should fill columns and break sequences longer than \`columns\` (3) 1`] = `
 {
   "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "The \\u001b[1mq",
     "uick\\u001b[22m",
@@ -3073,8 +3052,6 @@ exports[`functional:internal/tokenize > options.fill > should fill columns and b
 exports[`functional:internal/tokenize > options.fill > should work with no trimming (0) 1`] = `
 {
   "candidate": ""0123456789\\n"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "01234",
     "56789",
@@ -3086,8 +3063,6 @@ exports[`functional:internal/tokenize > options.fill > should work with no trimm
 exports[`functional:internal/tokenize > options.fill > should work with no trimming (1) 1`] = `
 {
   "candidate": ""12345678\\r\\n901234567890 12345"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "12345",
     "678",
@@ -3102,8 +3077,6 @@ exports[`functional:internal/tokenize > options.fill > should work with no trimm
 exports[`functional:internal/tokenize > options.fill > should work with no trimming (2) 1`] = `
 {
   "candidate": ""12345678\\r\\n901234567890 12345"",
-  "cols": 13,
-  "columns": 13,
   "lines": [
     "12345678",
     "901234567890 ",
@@ -3115,8 +3088,6 @@ exports[`functional:internal/tokenize > options.fill > should work with no trimm
 exports[`functional:internal/tokenize > options.fill > should work with no trimming (3) 1`] = `
 {
   "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "The \\u001b[1mq",
     "uick\\u001b[22m ",
@@ -3141,8 +3112,6 @@ exports[`functional:internal/tokenize > options.fill > should work with no trimm
 exports[`functional:internal/tokenize > options.hard > should break sequences longer than \`columns\` (0) 1`] = `
 {
   "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "The",
     "\\u001b[1mquick\\u001b[22m",
@@ -3168,8 +3137,6 @@ exports[`functional:internal/tokenize > options.hard > should break sequences lo
 exports[`functional:internal/tokenize > options.hard > should break sequences longer than \`columns\` (1) 1`] = `
 {
   "candidate": ""12345678\\r\\n901234567890"",
-  "cols": 10,
-  "columns": 10,
   "lines": [
     "12345678",
     "9012345678",
@@ -3181,8 +3148,6 @@ exports[`functional:internal/tokenize > options.hard > should break sequences lo
 exports[`functional:internal/tokenize > options.hard > should break sequences longer than \`columns\` (2) 1`] = `
 {
   "candidate": ""Check out the GitHub for Flex Development, it is supercalifragilisticexpialidocious"",
-  "cols": 16,
-  "columns": 16,
   "lines": [
     "Check out the",
     "GitHub for Flex",
@@ -3197,8 +3162,6 @@ exports[`functional:internal/tokenize > options.hard > should break sequences lo
 exports[`functional:internal/tokenize > options.hard > should break sequences longer than \`columns\` (3) 1`] = `
 {
   "candidate": ""\\u001b[32mhelloworld\\u001b[39m"",
-  "cols": 1,
-  "columns": 1,
   "lines": [
     "\\u001b[32mh",
     "e",
@@ -3217,8 +3180,6 @@ exports[`functional:internal/tokenize > options.hard > should break sequences lo
 exports[`functional:internal/tokenize > options.hard > should break sequences longer than \`columns\` (4) 1`] = `
 {
   "candidate": ""\\u001b[33mhello\\u001b[39mworld"",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "\\u001b[33mhello\\u001b[39m",
     "world",
@@ -3229,8 +3190,6 @@ exports[`functional:internal/tokenize > options.hard > should break sequences lo
 exports[`functional:internal/tokenize > options.hard > should break sequences longer than \`columns\` (5) 1`] = `
 {
   "candidate": ""Check out the \\u001b]8;;https://github.com/flex-development\\u0007\\u001b[1mGitHub\\u001b[22m for Flex Development\\u001b]8;;\\u0007, it \\u001b[41mis \\u001b]8;;https://github.com/flex-development\\u0007supercalifragilisticexpialidocious\\u001b]8;;\\u0007\\u001b[49m"",
-  "cols": 16,
-  "columns": 16,
   "lines": [
     "Check out the",
     "\\u001b]8;;https://github.com/flex-development\\u0007\\u001b[1mGitHub\\u001b[22m for Flex",
@@ -3245,8 +3204,6 @@ exports[`functional:internal/tokenize > options.hard > should break sequences lo
 exports[`functional:internal/tokenize > options.hard > should handle no trimming 1`] = `
 {
   "candidate": ""   "",
-  "cols": 2,
-  "columns": 2,
   "lines": [
     "  ",
     " ",
@@ -3257,8 +3214,6 @@ exports[`functional:internal/tokenize > options.hard > should handle no trimming
 exports[`functional:internal/tokenize > options.hard > should handle no trimming 2`] = `
 {
   "candidate": ""foo   bar"",
-  "cols": 3,
-  "columns": 3,
   "lines": [
     "foo",
     "   ",
@@ -3270,8 +3225,6 @@ exports[`functional:internal/tokenize > options.hard > should handle no trimming
 exports[`functional:internal/tokenize > options.hard > should handle no trimming 3`] = `
 {
   "candidate": ""0123456789\\n "",
-  "cols": 5,
-  "columns": 5,
   "lines": [
     "01234",
     "56789",
@@ -3283,8 +3236,6 @@ exports[`functional:internal/tokenize > options.hard > should handle no trimming
 exports[`functional:internal/tokenize > options.hard > should handle no trimming 4`] = `
 {
   "candidate": ""\\u001b[42m hello \\u001b[49m"",
-  "cols": 10,
-  "columns": 10,
   "lines": [
     "\\u001b[42m hello \\u001b[49m",
   ],
@@ -3294,8 +3245,6 @@ exports[`functional:internal/tokenize > options.hard > should handle no trimming
 exports[`functional:internal/tokenize > options.hard > should handle short sequences 1`] = `
 {
   "candidate": ""foo   bar"",
-  "cols": 3,
-  "columns": 3,
   "lines": [
     "foo",
     "bar",
@@ -3306,8 +3255,6 @@ exports[`functional:internal/tokenize > options.hard > should handle short seque
 exports[`functional:internal/tokenize > options.hard > should merge last line if it only contains ansi 1`] = `
 {
   "candidate": ""\\u001b[32mhelloworld  \\u001b[39m"",
-  "cols": 2,
-  "columns": 2,
   "lines": [
     "\\u001b[32mhe",
     "ll",
@@ -3321,8 +3268,6 @@ exports[`functional:internal/tokenize > options.hard > should merge last line if
 exports[`functional:internal/tokenize > options.hard > should support emojis 1`] = `
 {
   "candidate": ""🦄🦾🚀"",
-  "cols": 1,
-  "columns": 1,
   "lines": [
     "🦄",
     "🦾",
@@ -3334,8 +3279,6 @@ exports[`functional:internal/tokenize > options.hard > should support emojis 1`]
 exports[`functional:internal/tokenize > options.hard > should support fullwidth characters 1`] = `
 {
   "candidate": ""안녕하세"",
-  "cols": 2,
-  "columns": 2,
   "lines": [
     "안",
     "녕",
@@ -3348,9 +3291,6 @@ exports[`functional:internal/tokenize > options.hard > should support fullwidth 
 exports[`functional:internal/tokenize > options.indent > should indent each line (0) 1`] = `
 {
   "candidate": ""The quick brown fox jumped over the lazy dog"",
-  "cols": 18,
-  "columns": 20,
-  "indent": [Function spacer],
   "lines": [
     "  The quick brown",
     "  fox jumped over",
@@ -3362,9 +3302,6 @@ exports[`functional:internal/tokenize > options.indent > should indent each line
 exports[`functional:internal/tokenize > options.indent > should indent each line (1) 1`] = `
 {
   "candidate": ""The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then ran away with the unicorn.\\u001b[39m"",
-  "cols": 24,
-  "columns": 30,
-  "indent": [Function spacer],
   "lines": [
     "The \\u001b[1mquick\\u001b[22m brown \\u001b[31mfox jumped",
     "  over \\u001b[39mthe \\u001b[3mlazy\\u001b[23m \\u001b[32mdog and then",
@@ -3376,9 +3313,6 @@ exports[`functional:internal/tokenize > options.indent > should indent each line
 exports[`functional:internal/tokenize > options.indent > should indent each line (2) 1`] = `
 {
   "candidate": ""hello\\r\\nworld 🌎"",
-  "cols": 6,
-  "columns": 7,
-  "indent": [Function spacer],
   "lines": [
     " hello",
     " world",
@@ -3387,26 +3321,30 @@ exports[`functional:internal/tokenize > options.indent > should indent each line
 }
 `;
 
+exports[`functional:internal/tokenize > options.indent > should work with dynamic columns 1`] = `
+{
+  "candidate": ""whether to respect\\nunstable tags"",
+  "lines": [
+    "whether to respect",
+    "                                         unstable tags",
+  ],
+}
+`;
+
 exports[`functional:internal/tokenize > options.pad* > should add padding to each line (0) 1`] = `
 {
   "candidate": ""🦄 🦾 🚀"",
-  "cols": 1,
-  "columns": 3,
   "lines": [
     "  🦄",
     "  🦾",
     "  🚀",
   ],
-  "padLeft": [Function spacer],
-  "padRight": [Function spacer],
 }
 `;
 
 exports[`functional:internal/tokenize > options.pad* > should add padding to each line (1) 1`] = `
 {
   "candidate": ""0 1 2 3 4 5 6 7 8 9\\n"",
-  "cols": 1,
-  "columns": 5,
   "lines": [
     "0    ",
     "1    ",
@@ -3420,16 +3358,12 @@ exports[`functional:internal/tokenize > options.pad* > should add padding to eac
     "9    ",
     "    ",
   ],
-  "padLeft": [Function spacer],
-  "padRight": [Function spacer],
 }
 `;
 
 exports[`functional:internal/tokenize > options.pad* > should add padding to each line (2) 1`] = `
 {
   "candidate": ""0 1 2 3 4 5 6 7 8 9"",
-  "cols": 1,
-  "columns": 13,
   "lines": [
     "     |0|     ",
     "     |1|     ",
@@ -3442,31 +3376,33 @@ exports[`functional:internal/tokenize > options.pad* > should add padding to eac
     "     |8|     ",
     "     |9|     ",
   ],
-  "padLeft": [Function spacer],
-  "padRight": [Function spacer],
 }
 `;
 
 exports[`functional:internal/tokenize > options.pad* > should add padding to each line (3) 1`] = `
 {
   "candidate": ""The quick brown fox jumped over the lazy dog"",
-  "cols": 18,
-  "columns": 20,
   "lines": [
     " The quick brown ",
     " fox jumped over ",
     " the lazy dog ",
   ],
-  "padLeft": [Function spacer],
-  "padRight": [Function spacer],
+}
+`;
+
+exports[`functional:internal/tokenize > options.pad* > should work with dynamic columns 1`] = `
+{
+  "candidate": ""whether color output\\nis enabled"",
+  "lines": [
+    "whether color output",
+    "                                         is enabled",
+  ],
 }
 `;
 
 exports[`functional:internal/tokenize > options.stripAnsi > should remove ansi escape codes before wrapping (0) 1`] = `
 {
   "candidate": ""The quick brown fox jumped over the lazy dog and then ran away with the unicorn."",
-  "cols": 20,
-  "columns": 20,
   "lines": [
     "The quick brown fox",
     "jumped over the lazy",
@@ -3480,8 +3416,6 @@ exports[`functional:internal/tokenize > options.stripAnsi > should remove ansi e
 exports[`functional:internal/tokenize > options.stripAnsi > should remove ansi escape codes before wrapping (1) 1`] = `
 {
   "candidate": ""hello world hey!"",
-  "cols": 11,
-  "columns": 11,
   "lines": [
     "hello world",
     "hey!",
@@ -3492,8 +3426,6 @@ exports[`functional:internal/tokenize > options.stripAnsi > should remove ansi e
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (0) 1`] = `
 {
   "candidate": ""   "",
-  "cols": 2,
-  "columns": 2,
   "lines": [
     "  ",
     " ",
@@ -3504,8 +3436,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (1) 1`] = `
 {
   "candidate": ""0 1 2 3 4 5 6 7 8 9\\n"",
-  "cols": 1,
-  "columns": 1,
   "lines": [
     "0",
     " ",
@@ -3534,8 +3464,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (2) 1`] = `
 {
   "candidate": ""   foo   bar   "",
-  "cols": 42,
-  "columns": 42,
   "lines": [
     "   foo   bar   ",
   ],
@@ -3545,8 +3473,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (3) 1`] = `
 {
   "candidate": ""  a "",
-  "cols": 10,
-  "columns": 10,
   "lines": [
     "  a ",
   ],
@@ -3556,8 +3482,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (4) 1`] = `
 {
   "candidate": ""   a "",
-  "cols": 10,
-  "columns": 10,
   "lines": [
     "   a ",
   ],
@@ -3567,8 +3491,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (5) 1`] = `
 {
   "candidate": ""\\u001b[34m   foo   bar   \\u001b[39m"",
-  "cols": 42,
-  "columns": 42,
   "lines": [
     "\\u001b[34m   foo   bar   \\u001b[39m",
   ],
@@ -3578,8 +3500,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (6) 1`] = `
 {
   "candidate": ""foo   bar"",
-  "cols": 3,
-  "columns": 3,
   "lines": [
     "foo",
     "   ",
@@ -3591,8 +3511,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (7) 1`] = `
 {
   "candidate": ""\\u001b[42m \\u001b[30mok\\u001b[39m \\u001b[49m"",
-  "cols": 100,
-  "columns": 100,
   "lines": [
     "\\u001b[42m \\u001b[30mok\\u001b[39m \\u001b[49m",
   ],
@@ -3602,8 +3520,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (8) 1`] = `
 {
   "candidate": ""\\u001b[42m  \\u001b[30mok\\u001b[39m  \\u001b[49m"",
-  "cols": 100,
-  "columns": 100,
   "lines": [
     "\\u001b[42m  \\u001b[30mok\\u001b[39m  \\u001b[49m",
   ],
@@ -3613,8 +3529,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (9) 1`] = `
 {
   "candidate": ""Hello, \\u001b[1D World!"",
-  "cols": 8,
-  "columns": 8,
   "lines": [
     "Hello, \\u001b[1D ",
     "World!",
@@ -3625,8 +3539,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (10) 1`] = `
 {
   "candidate": ""first value in starting sequence\\n  choices: [\\"0\\",\\"1\\",\\"2\\",\\"3\\",\\"4\\",\\"5\\",\\"6\\",\\"7\\",\\"8\\",\\"9\\"]"",
-  "cols": 66,
-  "columns": 66,
   "lines": [
     "first value in starting sequence",
     "  choices: ["0","1","2","3","4","5","6","7","8","9"]",
@@ -3637,8 +3549,6 @@ exports[`functional:internal/tokenize > options.trim > should not trim lines if 
 exports[`functional:internal/tokenize > options.trim > should trim whitespace only on actual wrapped lines if enabled (0) 1`] = `
 {
   "candidate": ""   foo   bar   "",
-  "cols": 3,
-  "columns": 3,
   "lines": [
     "foo",
     "bar",
@@ -3649,8 +3559,6 @@ exports[`functional:internal/tokenize > options.trim > should trim whitespace on
 exports[`functional:internal/tokenize > options.trim > should trim whitespace only on actual wrapped lines if enabled (1) 1`] = `
 {
   "candidate": ""   foo   bar   "",
-  "cols": 6,
-  "columns": 6,
   "lines": [
     "foo",
     "bar",
@@ -3661,8 +3569,6 @@ exports[`functional:internal/tokenize > options.trim > should trim whitespace on
 exports[`functional:internal/tokenize > options.trim > should trim whitespace only on actual wrapped lines if enabled (2) 1`] = `
 {
   "candidate": ""   foo   bar   "",
-  "cols": 42,
-  "columns": 42,
   "lines": [
     "foo   bar",
   ],
@@ -3672,8 +3578,6 @@ exports[`functional:internal/tokenize > options.trim > should trim whitespace on
 exports[`functional:internal/tokenize > options.trim > should trim whitespace only on actual wrapped lines if enabled (3) 1`] = `
 {
   "candidate": ""\\u001b[31m   foo   bar   \\u001b[39m"",
-  "cols": 6,
-  "columns": 6,
   "lines": [
     "\\u001b[31mfoo",
     "bar\\u001b[39m",
@@ -3684,8 +3588,6 @@ exports[`functional:internal/tokenize > options.trim > should trim whitespace on
 exports[`functional:internal/tokenize > options.trim > should trim whitespace only on actual wrapped lines if enabled (4) 1`] = `
 {
   "candidate": ""\\u001b[32m   foo   bar   \\u001b[39m"",
-  "cols": 42,
-  "columns": 42,
   "lines": [
     "\\u001b[32mfoo   bar\\u001b[39m",
   ],

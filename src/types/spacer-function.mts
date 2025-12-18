@@ -14,7 +14,7 @@
  * @this {void}
  *
  * @param {number} index
- *  The index of the current line
+ *  The index of the current line, or `-1` on init
  * @param {ReadonlyArray<string> | null | undefined} [lines]
  *  The current list of lines
  * @return {T}

@@ -1,6 +1,7 @@
 import tt from '#enums/tt'
 import type {} from '@flex-development/fsm-tokenizer'
 import type {
+  ColumnsFunction,
   Config,
   SpacerFunction,
   StripAnsi,
@@ -34,15 +35,17 @@ declare module '@flex-development/fsm-tokenizer' {
      *
      * @internal
      */
-    cols: number
+    ac: number
 
     /**
-     * The number of columns to wrap the {@linkcode string} to.
+     * A function that returns the maximum number of columns per line.
+     *
+     * @see {@linkcode ColumnsFunction}
      *
      * @internal
      * @override
      */
-    columns: number
+    columns: ColumnsFunction<number>
 
     /**
      * The character, or characters, used to mark the end of a line.

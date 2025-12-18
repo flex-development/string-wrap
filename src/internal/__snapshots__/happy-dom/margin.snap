@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`unit:internal/pad > should return padding string ("  ") 1`] = `"  "`;
+exports[`unit:internal/margin > should return padding string ("  ") 1`] = `"  "`;
 
-exports[`unit:internal/pad > should return padding string ("3") 1`] = `"   "`;
+exports[`unit:internal/margin > should return padding string ("3") 1`] = `"   "`;
 
-exports[`unit:internal/pad > should return padding string (0) 1`] = `""`;
+exports[`unit:internal/margin > should return padding string (0) 1`] = `""`;
 
-exports[`unit:internal/pad > should return padding string (null) 1`] = `""`;
+exports[`unit:internal/margin > should return padding string (null) 1`] = `""`;

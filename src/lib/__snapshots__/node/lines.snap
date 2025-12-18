@@ -2,6 +2,7 @@
 
 exports[`unit:lib/lines > should return lines info (0) 1`] = `
 {
+  "columns": [Function columns],
   "eol": ""\\r\\n"",
   "indent": [Function spacer],
   "lines": [
@@ -16,6 +17,7 @@ exports[`unit:lib/lines > should return lines info (0) 1`] = `
 
 exports[`unit:lib/lines > should return lines info (1) 1`] = `
 {
+  "columns": [Function columns],
   "eol": ""\\n"",
   "indent": [Function spacer],
   "lines": [

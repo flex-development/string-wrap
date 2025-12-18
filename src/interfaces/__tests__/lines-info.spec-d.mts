@@ -4,9 +4,18 @@
  */
 
 import type TestSubject from '#interfaces/lines-info'
-import type { SpacerFunction } from '@flex-development/string-wrap'
+import type {
+  ColumnsFunction,
+  SpacerFunction
+} from '@flex-development/string-wrap'
 
 describe('unit-d:interfaces/LinesInfo', () => {
+  it('should match [columns: ColumnsFunction<number>]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('columns')
+      .toEqualTypeOf<ColumnsFunction<number>>()
+  })
+
   it('should match [eol: string]', () => {
     expectTypeOf<TestSubject>().toHaveProperty('eol').toEqualTypeOf<string>()
   })

@@ -3,12 +3,22 @@
  * @module string-wrap/interfaces/LinesInfo
  */
 
-import type { SpacerFunction } from '@flex-development/string-wrap'
+import type {
+  ColumnsFunction,
+  SpacerFunction
+} from '@flex-development/string-wrap'
 
 /**
  * Info about the lines of a wrapped string.
  */
 interface LinesInfo {
+  /**
+   * Get the maximum number of columns per line.
+   *
+   * @see {ColumnsFunction}
+   */
+  columns: ColumnsFunction<number>
+
   /**
    * The character, or characters, used to mark the end of a line.
    */

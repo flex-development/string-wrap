@@ -25,6 +25,8 @@ Wrap a string
   - [`lines(thing, config[, options])`](#linesthing-config-options)
   - [`wrap(thing, config[, options])`](#wrapthing-config-options)
 - [Types](#types)
+  - [`ColumnsFunction<[T]>`](#columnsfunctiont)
+  - [`Columns`](#columns)
   - [`Config`](#config)
   - [`LinesInfo`](#linesinfo)
   - [`Options`](#options)
@@ -41,6 +43,7 @@ This is a small, but useful package for word-wrapping a string to a specified co
 ### Features
 
 \:rainbow: [ansi][] support\
+\:triangular\_ruler: configure columns dynamically\
 \:unicorn: emoji and fullwidth character support\
 \:arrow\_right: indent and pad lines
 
@@ -133,15 +136,16 @@ Get info about the lines of a wrapped string.
 
 #### Overloads
 
-- `lines(thing: unknown, config: number | string, options?: Options | null | undefined): LinesInfo`
-- `lines(thing: unknown, config: Config | number | string): LinesInfo`
+- `lines(thing: unknown, config: Columns, options?: Options | null | undefined): LinesInfo`
+- `lines(thing: unknown, config: Columns | Config): LinesInfo`
 
 ##### Parameters
 
 - `thing` (`unknown`)
   — the thing to wrap. non-string values will be converted to strings
-- `config` ([`Config`](#config) | `number` | `string`)
-  — the wrap configuration or the number of columns to wrap the string to
+- `config` ([`Columns`](#columns) | [`Config`](#config))
+  — the wrap configuration, the number of columns to wrap the string to,
+  or a function that returns the maximum number of columns per line
 - `options` ([`Options`](#options) | `null` | `undefined`, `optional`)
   — options for wrapping
 
@@ -155,15 +159,16 @@ Wrap a string to the specified column width.
 
 #### Overloads
 
-- `wrap(thing: unknown, config: number | string, options?: Options | null | undefined): string`
-- `wrap(thing: unknown, config: Config | number | string): string`
+- `wrap(thing: unknown, config: Columns, options?: Options | null | undefined): string`
+- `wrap(thing: unknown, config: Columns | Config): string`
 
 ##### Parameters
 
 - `thing` (`unknown`)
   — the thing to wrap. non-string values will be converted to strings
-- `config` ([`Config`](#config) | `number` | `string`)
-  — the wrap configuration or the number of columns to wrap the string to
+- `config` ([`Columns`](#columns) | [`Config`](#config))
+  — the wrap configuration, the number of columns to wrap the string to,
+  or a function that returns the maximum number of columns per line
 - `options` ([`Options`](#options) | `null` | `undefined`, `optional`)
   — options for wrapping
 
@@ -175,6 +180,45 @@ Wrap a string to the specified column width.
 
 This package is fully typed with [TypeScript][].
 
+### `ColumnsFunction<[T]>`
+
+Get the maximum number of columns for the line at `index` (`type`).
+
+> 👉 **Note**: The total number of available columns is calculated from the
+> maximum number of columns, indentation, and padding.
+
+```ts
+type ColumnsFunction<T extends number | string = number | string> = (
+  this: void,
+  index: number,
+  lines?: readonly string[] | null | undefined
+) => T
+```
+
+#### Type Parameters
+
+- `T` (`number` | `string`, optional)
+  — the maximum number of columns
+
+#### Parameters
+
+- `index` (`number`)
+  — the index of the current line, or `-1` on init
+- `lines` (`readonly string[]` | `null` | `undefined`, optional)
+  — the current list of lines
+
+#### Returns
+
+(`T`) The maximum number of columns
+
+### `Columns`
+
+Union of column configurations (`type`).
+
+```ts
+type Columns = ColumnsFunction | number | string
+```
+
 ### `Config`
 
 String wrapping configuration (`interface`).
@@ -185,8 +229,8 @@ String wrapping configuration (`interface`).
 
 #### Properties
 
-- `columns` (`number` | `string`)
-  — the number of columns to wrap the string to
+- `columns` ([`Columns`](#columns))
+  — the number of columns to wrap the string to, or a function that returns the maximum number of columns per line
 
 ### `LinesInfo`
 
@@ -194,6 +238,8 @@ Info about the lines of a wrapped string (`interface`).
 
 #### Properties
 
+- `columns` ([`ColumnsFunction<number>`](#columnsfunctiont))
+  — get the maximum number of columns per line
 - `eol` (`string`)
   — the character, or characters, used to mark the end of a line
 - `indent` ([`SpacerFunction<string>`](#spacerfunctiont))
@@ -270,7 +316,7 @@ type SpacerFunction<
 #### Parameters
 
 - `index` (`number`)
-  — the index of the current line
+  — the index of the current line, or `-1` on init
 - `lines` (`readonly string[]` | `null` | `undefined`, optional)
   — the current list of lines
 

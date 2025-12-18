@@ -13,7 +13,7 @@ describe('unit:lib/lines', () => {
   let keys: string[]
 
   beforeAll(() => {
-    keys = ['eol', 'indent', 'lines', 'padLeft', 'padRight']
+    keys = ['columns', 'eol', 'indent', 'lines', 'padLeft', 'padRight']
   })
 
   it.each<[thing: unknown, config: Config]>([
@@ -43,6 +43,7 @@ describe('unit:lib/lines', () => {
 
     // Expect (snapshot)
     expect({
+      columns: result.columns,
       eol: JSON.stringify(result.eol),
       indent: result.indent,
       lines: result.lines,
