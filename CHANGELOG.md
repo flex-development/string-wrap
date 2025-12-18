@@ -1,3 +1,27 @@
+## [2.1.0](https://github.com/flex-development/string-wrap/compare/2.0.0...2.1.0) (2025-12-18)
+
+### :package: Build
+
+- [[`3fd5751`](https://github.com/flex-development/string-wrap/commit/3fd5751cf3bcfccaab99d48fa3a17c8c9e74afef)] **deps-dev:** Bump eslint from 9.39.1 to 9.39.2 ([#23](https://github.com/flex-development/string-wrap/issues/23))
+- [[`4d89983`](https://github.com/flex-development/string-wrap/commit/4d899833798687215df63a9b8d9c2515b62ba9c3)] **deps-dev:** Bump the vitest group with 3 updates ([#25](https://github.com/flex-development/string-wrap/issues/25))
+
+### :robot: Continuous Integration
+
+- [[`bb7ac0b`](https://github.com/flex-development/string-wrap/commit/bb7ac0bb6ebe2c7ca1ede52b8b8f97c24930762d)] **deps:** Bump actions/cache from 4.3.0 to 5.0.0 ([#20](https://github.com/flex-development/string-wrap/issues/20))
+- [[`b7bb004`](https://github.com/flex-development/string-wrap/commit/b7bb004f595953fd31bd3ef5b35d4ffafc21b9b4)] **deps:** Bump actions/cache from 5.0.0 to 5.0.1 ([#21](https://github.com/flex-development/string-wrap/issues/21))
+- [[`6b856a6`](https://github.com/flex-development/string-wrap/commit/6b856a6141db3eba880bdf04515bdeb078f30460)] **deps:** Bump actions/create-github-app-token from 2.2.0 to 2.2.1 ([#17](https://github.com/flex-development/string-wrap/issues/17))
+- [[`6db9c87`](https://github.com/flex-development/string-wrap/commit/6db9c874577e895cec1166fd3ac690f7e6c0dd98)] **deps:** Bump actions/upload-artifact from 5.0.0 to 6.0.0 ([#22](https://github.com/flex-development/string-wrap/issues/22))
+- [[`c07ce4d`](https://github.com/flex-development/string-wrap/commit/c07ce4d80bb382638e348fc51b897eb6ba434099)] **deps:** Bump codecov/codecov-action from 5.5.1 to 5.5.2 ([#19](https://github.com/flex-development/string-wrap/issues/19))
+- [[`7ed65d8`](https://github.com/flex-development/string-wrap/commit/7ed65d810635d91650b5730b7d9abf8e372d0596)] **deps:** Bump codecov/test-results-action from 1.1.1 to 1.2.1 ([#24](https://github.com/flex-development/string-wrap/issues/24))
+- [[`4b8a2ff`](https://github.com/flex-development/string-wrap/commit/4b8a2ffa3e083e48b0b62d9bea8468845e64704e)] **deps:** Bump kaisugi/action-regex-match from 1.0.1 to 1.0.2 ([#16](https://github.com/flex-development/string-wrap/issues/16))
+- [[`07d07a0`](https://github.com/flex-development/string-wrap/commit/07d07a0c4a445cd352f221522d5ce496c1dfdbd0)] **deps:** Bump streetsidesoftware/cspell-action from 8.0.0 to 8.1.1 ([#18](https://github.com/flex-development/string-wrap/issues/18))
+- [[`cf55dd9`](https://github.com/flex-development/string-wrap/commit/cf55dd9d73615e6592bae6da1d3d00176a321f45)] **workflows:** [`ci`] replace codecov/test-results-action
+
+### :sparkles: Features
+
+- [[`52f162c`](https://github.com/flex-development/string-wrap/commit/52f162cec50f7bbc2b9c425e9ecd75276966eebb)] detab before wrapping
+- [[`a169fa3`](https://github.com/flex-development/string-wrap/commit/a169fa3400ba69ee049c32ccc2908216b2ebd8c3)] dynamic columns
+
 ## [2.0.0](https://github.com/flex-development/string-wrap/compare/1.0.1...2.0.0) (2025-12-06)
 
 ### ⚠ BREAKING CHANGES
@@ -54,6 +78,7 @@
 ### :mechanical_arm: Refactors
 
 - [[`570f7c9`](https://github.com/flex-development/string-wrap/commit/570f7c96bbfd41df6a4a0d615c511fc92a3b4b00)] **internal:** [`takeVisible`] add ansi support
+
 
 
 
