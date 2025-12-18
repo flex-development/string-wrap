@@ -80,7 +80,7 @@ interface Options {
    *
    * @default 2
    */
-  tabSize?: number | null | undefined
+  tabSize?: number | string | null | undefined
 
   /**
    * Whether to remove whitespace from the beginning and end of each line.

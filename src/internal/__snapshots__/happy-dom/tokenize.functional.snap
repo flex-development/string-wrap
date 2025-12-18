@@ -3423,6 +3423,19 @@ exports[`functional:internal/tokenize > options.stripAnsi > should remove ansi e
 }
 `;
 
+exports[`functional:internal/tokenize > options.tabSize > should replace tabs with equivalent number of spaces 1`] = `
+{
+  "candidate": ""\\t\\t\\t\\ttestingtesting"",
+  "hard": true,
+  "lines": [
+    "    testing",
+    "testing",
+  ],
+  "tabSize": 1,
+  "trim": false,
+}
+`;
+
 exports[`functional:internal/tokenize > options.trim > should not trim lines if disabled (0) 1`] = `
 {
   "candidate": ""   "",

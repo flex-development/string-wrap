@@ -26,6 +26,7 @@ import type {
   SpacerFunction
 } from '@flex-development/string-wrap'
 import stripAnsi from '@flex-development/strip-ansi'
+import { detab } from 'detab'
 import { ok } from 'devlop'
 
 export default tokenize
@@ -133,12 +134,23 @@ function tokenize(
       [codes.vcr]: eol,
       [codes.vlf]: eol,
       null: [sequence, eoc]
-    }),
-    tabSize: config.tabSize ?? +chars.digit2
+    })
   })
 
-  void chunks(context.trim ? trimEnd(context.string) : context.string, / /g)
-  return context
+  /**
+   * The string to wrap.
+   *
+   * @var {string} string
+   */
+  let string: string = context.string
+
+  // remove tabs.
+  string = detab(string, context.tabSize)
+
+  // trim string.
+  if (context.trim) string = trimEnd(string)
+
+  return void chunks(string, / /g), context
 
   /**
    * Write chunks to the tokenizer.
@@ -255,6 +267,7 @@ function tokenize(
     self.lines = []
     self.padLeft = spacing(config.padLeft)
     self.padRight = spacing(config.padRight)
+    self.tabSize = number(config.tabSize ?? chars.digit2)
     self.stringify = config.stringify ?? String
     self.trim = config.trim ?? true
 

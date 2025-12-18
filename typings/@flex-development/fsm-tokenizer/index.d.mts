@@ -136,5 +136,13 @@ declare module '@flex-development/fsm-tokenizer' {
      * @override
      */
     stripAnsi: StripAnsi
+
+    /**
+     * The number of spaces a tab is equivalent to.
+     *
+     * @internal
+     * @override
+     */
+    tabSize: number
   }
 }

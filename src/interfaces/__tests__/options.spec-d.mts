@@ -60,10 +60,10 @@ describe('unit-d:interfaces/Options', () => {
       .toEqualTypeOf<Nilable<StripAnsi | boolean>>()
   })
 
-  it('should match [tabSize?: number | null | undefined]', () => {
+  it('should match [tabSize?: number | string | null | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('tabSize')
-      .toEqualTypeOf<Nilable<number>>()
+      .toEqualTypeOf<Nilable<number | string>>()
   })
 
   it('should match [trim?: boolean | null | undefined]', () => {

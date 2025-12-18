@@ -280,7 +280,7 @@ Options for wrapping a string (`interface`).
   — convert a value to a string
 - `stripAnsi?` ([`StripAnsi`](#stripansi) | `boolean` | `null` | `undefined`, optional)
   — whether to remove ANSI escape codes before wrapping, or a function to remove ANSI escape codes
-- `tabSize?` (`number` | `null` | `undefined`, optional)
+- `tabSize?` (`number` | `string` | `undefined`, optional)
   — the number of spaces a tab is equivalent to
   - default: `2`
 - `trim?` (`boolean` | `null` | `undefined`, optional)

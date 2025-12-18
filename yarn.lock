@@ -1930,6 +1930,7 @@ __metadata:
     concat-stream: "npm:2.0.0"
     cross-env: "npm:10.1.0"
     cspell: "npm:9.4.0"
+    detab: "npm:3.0.2"
     devlop: "npm:1.1.0"
     dprint: "npm:0.50.2"
     editorconfig: "npm:3.0.1"
@@ -4508,6 +4509,13 @@ __metadata:
   version: 2.0.3
   resolution: "dequal@npm:2.0.3"
   checksum: 10/6ff05a7561f33603df87c45e389c9ac0a95e3c056be3da1a0c4702149e3a7f6fe5ffbb294478687ba51a9e95f3a60e8b6b9005993acd79c292c7d15f71964b6b
+  languageName: node
+  linkType: hard
+
+"detab@npm:3.0.2":
+  version: 3.0.2
+  resolution: "detab@npm:3.0.2"
+  checksum: 10/89a1bebadfcca7f378358671b97c44d14b24960e755f93c9236eb002574782985d7faa7cdda1ee9e3a5fafcd60485f077d792d290232eaaab75a7077d944ef6f
   languageName: node
   linkType: hard
 

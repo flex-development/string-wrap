@@ -92,6 +92,7 @@ describe('functional:internal/tokenize', () => {
       'string',
       'stringify',
       'stripAnsi',
+      'tabSize',
       'token',
       'trim',
       'write'
@@ -538,6 +539,27 @@ describe('functional:internal/tokenize', () => {
       expect(result).to.have.property('padRight').be.a('function')
       expect(result.lines).to.satisfyColumns(result.columns)
       expect(snapshot(result)).toMatchSnapshot()
+    })
+  })
+
+  describe('options.tabSize', () => {
+    it('should replace tabs with equivalent number of spaces', () => {
+      // Arrange
+      const tabSize: string = chars.digit1
+      const thing: string = chars.ht.repeat(4) + 'testingtesting'
+
+      // Act
+      const result = testSubject(thing, 11, {
+        hard: true,
+        tabSize,
+        trim: false
+      })
+
+      // Expect
+      expect(result).to.have.keys(keys)
+      expect(result).to.have.property('tabSize', +tabSize)
+      expect(result.lines).to.satisfyColumns(result.columns)
+      expect(snapshot(result, ['hard', 'tabSize', 'trim'])).toMatchSnapshot()
     })
   })
 

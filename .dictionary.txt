@@ -4,6 +4,7 @@ chunker
 commandoptst
 commitlintrc
 dedupe
+detab
 devlop
 fbca
 gpgsign
