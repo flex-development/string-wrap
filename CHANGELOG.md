@@ -1,3 +1,9 @@
+## [2.1.2](https://github.com/flex-development/string-wrap/compare/2.1.1...2.1.2) (2025-12-18)
+
+### :robot: Continuous Integration
+
+- [[`7f489d0`](https://github.com/flex-development/string-wrap/commit/7f489d024aa80117105268aaf4edc5ac29e67489)] **workflows:** [`publish`] fix gpr auth
+
 ## [2.1.1](https://github.com/flex-development/string-wrap/compare/2.1.0...2.1.1) (2025-12-18)
 
 ### :robot: Continuous Integration
@@ -84,6 +90,7 @@
 ### :mechanical_arm: Refactors
 
 - [[`570f7c9`](https://github.com/flex-development/string-wrap/commit/570f7c96bbfd41df6a4a0d615c511fc92a3b4b00)] **internal:** [`takeVisible`] add ansi support
+
 
 
 
