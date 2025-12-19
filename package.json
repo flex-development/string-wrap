@@ -1,7 +1,7 @@
 {
   "name": "@flex-development/string-wrap",
   "description": "Wrap a string to a specified column width",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "keywords": [
     "256",
     "ansi",

@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/flex-development/string-wrap/compare/2.1.0...2.1.1) (2025-12-18)
+
+### :robot: Continuous Integration
+
+- [[`f88a836`](https://github.com/flex-development/string-wrap/commit/f88a8367ed8eeb3518e4f77e6890dc69467a84f2)] **workflows:** [`publish`] migrate to oidc trusted publishing
+
 ## [2.1.0](https://github.com/flex-development/string-wrap/compare/2.0.0...2.1.0) (2025-12-18)
 
 ### :package: Build
@@ -78,6 +84,7 @@
 ### :mechanical_arm: Refactors
 
 - [[`570f7c9`](https://github.com/flex-development/string-wrap/commit/570f7c96bbfd41df6a4a0d615c511fc92a3b4b00)] **internal:** [`takeVisible`] add ansi support
+
 
 
 
