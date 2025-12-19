@@ -100,6 +100,8 @@ jobs:
         run: cat $NPM_CONFIG_USERCONFIG
       - id: publish
         name: Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ${{ needs.preflight.outputs.command }}
   npm:
     needs: preflight
