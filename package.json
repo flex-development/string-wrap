@@ -145,7 +145,7 @@
     "devlop": "1.1.0",
     "grapheme-splitter": "1.0.4",
     "micromark-util-character": "2.1.1",
-    "string-width": "8.1.1"
+    "string-width": "8.2.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
