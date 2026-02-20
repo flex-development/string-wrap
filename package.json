@@ -187,7 +187,7 @@
     "unified": "11.0.5",
     "vfile": "6.0.3",
     "vitest": "4.0.18",
-    "wrap-ansi": "9.0.2",
+    "wrap-ansi": "10.0.0",
     "yaml-eslint-parser": "2.0.0"
   },
   "packageManager": "yarn@4.12.0",
