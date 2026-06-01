@@ -186,7 +186,7 @@
     "typescript": "6.0.3",
     "unified": "11.0.5",
     "vfile": "6.0.3",
-    "vitest": "4.0.18",
+    "vitest": "4.1.0",
     "wrap-ansi": "10.0.0",
     "yaml-eslint-parser": "2.0.0"
   },
